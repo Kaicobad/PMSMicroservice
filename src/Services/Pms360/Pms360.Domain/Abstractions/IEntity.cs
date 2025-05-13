@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace Pms360.API.Entities.Common;
 
-public class BaseEntity
+namespace Pms360.Domain.Abstractions;
+public interface IEntity<T> : IEntity
+{
+    public T Id { get; set; }
+}
+public interface IEntity
 {
     [Required]
     [Column("CreatedById")]

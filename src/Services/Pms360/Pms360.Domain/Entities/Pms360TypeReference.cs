@@ -1,13 +1,10 @@
 ﻿
-namespace Pms360.API.Entities;
+using Pms360.Domain.Abstractions;
 
+namespace Pms360.Domain.Entities;
 [Table("Pms360TypeReference")]
-public class Pms360TypeReference  :BaseEntity
+public class Pms360TypeReference :Aggregate<Guid>
 {
-    [Key]
-    [Column("Id")]
-    public required Guid Id { get; set; }
-
     [Required]
     [Column("Name")]
     [StringLength(50)]
@@ -19,6 +16,5 @@ public class Pms360TypeReference  :BaseEntity
 
     [Required]
     [Column("IsActive")]
-    public bool IsActive { get; set; }
-
+    public bool IsActive { get; set; } = false;
 }
