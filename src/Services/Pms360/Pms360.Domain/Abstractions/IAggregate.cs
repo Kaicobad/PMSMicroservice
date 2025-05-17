@@ -1,6 +1,6 @@
 ﻿namespace Pms360.Domain.Abstractions;
 
-public interface IAggregate<T> : IEntity<T>,IAggregate
+public interface IAggregate<T> : IAggregate, IEntity<T>
 {
 
 }

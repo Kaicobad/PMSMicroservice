@@ -2,7 +2,7 @@
 namespace Pms360.Domain.Abstractions;
 public class Aggregate<TId> : Entity<TId>, IAggregate<TId>
 {
-    private readonly IList<IDomainEvent> _domainEvents = [];
+    private readonly List<IDomainEvent> _domainEvents = new();
     public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
     public void AddDomainEvent(IDomainEvent domainEvent)
@@ -11,8 +11,8 @@ public class Aggregate<TId> : Entity<TId>, IAggregate<TId>
     }
     public IDomainEvent[] ClearDomainEvents()
     {
-        IDomainEvent[] domainEvents = _domainEvents.ToArray();
+        IDomainEvent[] dequeuedEvents = [.. _domainEvents];
         _domainEvents.Clear();
-        return domainEvents;
+        return dequeuedEvents;
     }
 }
