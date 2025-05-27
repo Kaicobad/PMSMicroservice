@@ -1,8 +1,12 @@
-﻿namespace Pms360.Domain.Abstractions;
-public abstract class Entity<T> : IEntity<T>
-{
-    public T Id { get; set; } = default!;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace Pms360.Domain.Entities;
+public class BaseEntity
+{
     [Required]
     public Guid CreatedById { get; set; }
     [Required]
@@ -11,4 +15,6 @@ public abstract class Entity<T> : IEntity<T>
     public DateTime? ModifiedOn { get; set; }
     public Guid? DeletedById { get; set; }
     public DateTime? DeletedOn { get; set; }
+    [Required]
+    public bool IsActive { get; set; }
 }

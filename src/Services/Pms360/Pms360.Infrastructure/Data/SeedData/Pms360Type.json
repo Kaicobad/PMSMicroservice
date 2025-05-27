@@ -1,0 +1,17 @@
+[
+  {
+    "Id": "d7e7612e-2b0f-4f17-8e75-1f57a9f54462",
+    "Name": "Individual",
+    "Description": "This is a description for the sample item."
+  },
+  {
+    "Id": "8ad18c1c-1aa4-44d4-88e6-3fefc2638a17",
+    "Name": "Department Wise",
+    "Description": "This is a description for the sample item."
+  },
+  {
+    "Id": "3c9c8997-4a66-43b0-9e3e-9f4747e90538",
+    "Name": "Company Wise",
+    "Description": "This is a description for the sample item."
+  }
+]
