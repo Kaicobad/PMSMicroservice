@@ -1,0 +1,17 @@
+[
+  {
+    "Id": "64a9829e-9f61-46d6-9f7b-181ba7d3a9f5",
+    "Name": "Monthly",
+    "Description": "This is a description for the sample item."
+  },
+  {
+    "Id": "91fc84f5-13d6-4d5e-8b24-321cbd64fd7c",
+    "Name": "Sample Item",
+    "Description": "This is a description for the sample item."
+  },
+  {
+    "Id": "0f7a5289-f302-42c6-a3b6-e4414c4ea464",
+    "Name": "Sample Item",
+    "Description": "This is a description for the sample item."
+  }
+]
