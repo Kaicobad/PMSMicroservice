@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Pms360.Domain.Entities;
-public class Pms360TypeReference : BaseEntity
+public class PMSDurationType :BaseEntity
 {
+    [Required]
+    public Guid DurationTypeId { get; set; }
     [Required]
     [StringLength(100)]
     public required string Name { get; set; }
     [StringLength(200)]
     public string? Description { get; set; }
+    public ICollection<PMSCycle>? PMSCycles { get; set; }
 }

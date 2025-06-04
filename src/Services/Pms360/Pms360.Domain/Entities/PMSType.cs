@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Pms360.Domain.Entities;
-public class Pms360PeriodReference :BaseEntity
+public class PMSType : BaseEntity
 {
+    [Required]
+    public Guid TypeId { get; set; }
     [Required]
     [StringLength(100)]
     public required string Name { get; set; }

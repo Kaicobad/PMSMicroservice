@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Pms360.Domain.Entities;
+public class EvaluationCriteria : BaseEntity
+{
+    public Guid CriteriaId { get; set; }
+    public string? Title { get; set; }
+    public string? Description { get; set; }
+    public int? DepartmentId { get; set; }
+    public int? DesignationId { get; set; }
+
+    public ICollection<CriteriaScale>? Scales { get; set; }
+    public ICollection<EvaluationResponse>? Responses { get; set; }
+}
