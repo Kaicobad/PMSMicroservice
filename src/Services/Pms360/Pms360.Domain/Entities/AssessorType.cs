@@ -10,5 +10,5 @@ public class AssessorType :BaseEntity
     [Required]
     public Guid TypeId { get; set; }
     [Required]
-    public string? TypeName { get; set; }; 
+    public string? TypeName { get; set; } 
 }
