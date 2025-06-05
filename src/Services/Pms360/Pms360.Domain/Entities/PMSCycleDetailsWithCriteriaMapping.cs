@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 namespace Pms360.Domain.Entities;
 public class PMSCycleDetailsWithCriteriaMapping
 {
+    [Required]
+    [Key]
     public Guid CycleDetailsCriteriaMappingId { get; set; }
     public Guid? CycleDetailsId { get; set; }
     public Guid? CriteriaId { get; set; }
 
-    public PMSCycleDetails? CycleDetails { get; set; }
-    public EvaluationCriteria? Criteria { get; set; }
+    public PMSCycleDetails CycleDetails { get; set; }
+    public EvaluationCriteria Criteria { get; set; }
 }

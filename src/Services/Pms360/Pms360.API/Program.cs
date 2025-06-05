@@ -1,8 +1,10 @@
+ // Ensure this namespace matches where AddInfrastructureServices is defined
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-//var assembly = typeof(Program).Assembly;
+var assembly = typeof(Program).Assembly;
 
 //builder.Services.AddMediatR(config =>
 //{
@@ -13,11 +15,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(x=> { x.SwaggerDoc("V1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Pms360API", Version = "V1" }); });
+builder.Services.AddSwaggerGen(x => { x.SwaggerDoc("V1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Pms360API", Version = "V1" }); });
+
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
 
- //configure the HTTP request pipeline
+// Configure the HTTP request pipeline
 
 if (app.Environment.IsDevelopment())
 {
@@ -28,4 +32,3 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.Run();
-

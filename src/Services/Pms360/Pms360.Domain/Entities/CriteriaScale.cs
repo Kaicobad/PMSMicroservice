@@ -8,11 +8,12 @@ namespace Pms360.Domain.Entities;
 public class CriteriaScale : BaseEntity
 {
     [Required]
+    [Key]
     public int ScaleId { get; set; }
     [Required]
     public Guid? CriteriaId { get; set; }
-    public string? Label { get; set; }
+    public string Label { get; set; }
     public int ScoreValue { get; set; }
 
-    public EvaluationCriteria? Criteria { get; set; }
+    public EvaluationCriteria Criteria { get; set; }
 }
