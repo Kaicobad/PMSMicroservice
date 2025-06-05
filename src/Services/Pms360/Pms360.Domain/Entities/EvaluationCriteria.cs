@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 namespace Pms360.Domain.Entities;
 public class EvaluationCriteria : BaseEntity
 {
+    [Required]
+    [Key]
     public Guid CriteriaId { get; set; }
-    public string? Title { get; set; }
-    public string? Description { get; set; }
-    public int? DepartmentId { get; set; }
-    public int? DesignationId { get; set; }
+    public string Title { get; set; }
+    [StringLength(500)]
+    public string Description { get; set; }
+    public int DepartmentId { get; set; }
+    public int DesignationId { get; set; }
 
-    public ICollection<CriteriaScale>? Scales { get; set; }
-    public ICollection<EvaluationResponse>? Responses { get; set; }
+    public ICollection<CriteriaScale> Scales { get; set; }
+    public ICollection<EvaluationResponse> Responses { get; set; }
 }

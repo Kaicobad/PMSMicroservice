@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Pms360.Infrastructure.Data;
+global using System.Reflection;
+global using Pms360.Domain.Entities;
 
-namespace Pms360.Infrastructure;
-internal class GlobalUsing
-{
-}
+
