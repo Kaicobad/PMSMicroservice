@@ -21,4 +21,30 @@ public class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
     }
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        foreach (var entry in ChangeTracker.Entries<BaseEntity>())
+        {
+            switch (entry.State)
+            {
+                case EntityState.Detached:
+                    entry.State = EntityState.Modified;
+                    break;
+                case EntityState.Added:
+                    entry.Entity.CreatedOn = DateTime.UtcNow;
+                    //entry.Entity.ModifiedById = _loggedInUser.Id;
+                    entry.Entity.UpdatedOn = DateTime.UtcNow;
+                    break;
+                case EntityState.Modified:
+                    //entry.Entity.ModifiedById = _loggedInUser.Id;
+                    entry.Entity.UpdatedOn = DateTime.UtcNow;
+                    break;
+                case EntityState.Deleted:
+                    entry.Entity.DeletedOn = DateTime.UtcNow;
+                    break;
+            }
+        }
+
+        return await base.SaveChangesAsync(cancellationToken);
+    }
 }
