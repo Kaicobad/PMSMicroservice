@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Pms360.Domain\Pms360.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\AssessorTypes\" />
+    <Folder Include="Features\PMSTypes\Commands\" />
+    <Folder Include="Features\PMSTypes\Queries\" />
   </ItemGroup>
 
 </Project>
