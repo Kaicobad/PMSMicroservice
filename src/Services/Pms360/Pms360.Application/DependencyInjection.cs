@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-
+﻿
 namespace Pms360.Application;
 
 public static class DependencyInjection
