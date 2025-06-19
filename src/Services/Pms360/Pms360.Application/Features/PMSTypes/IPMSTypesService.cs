@@ -8,10 +8,10 @@ using Pms360.Domain.Entities;
 namespace Pms360.Application.Features.PMSTypes;
 public interface IPMSTypesService
 {
-    Task<int> CreateAsync(PMSType pmsType);
-    Task<PMSType> UpdateAsync(PMSType pmsType);
-    Task<int> DeleteAsync(int id);
-    Task<PMSType> GetByIdAsync(int id);
-    Task<List<PMSType>> GetAll();
-    Task<bool> IsExistsAsync(int id);
+    Task<Guid> CreateAsync(PMSType pmsType, CancellationToken cancellationToken);
+    Task<PMSType> UpdateAsync(PMSType pmsType, CancellationToken cancellationToken);
+    Task<int> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<PMSType> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<List<PMSType>> GetAll(CancellationToken cancellationToken);
+    Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken);
 }

@@ -1,21 +1,16 @@
- // Ensure this namespace matches where AddInfrastructureServices is defined
+// Ensure this namespace matches where AddInfrastructureServices is defined
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddApiServices();
+
 // Add services to the container.
-
-var assembly = typeof(Program).Assembly;
-
-//builder.Services.AddMediatR(config =>
-//{
-//    config.RegisterServicesFromAssembly(assembly);
-//    config.AddOpenBehavior(typeof(ValidationBehavior<,>));
-//    config.AddOpenBehavior(typeof(LoggingBehavior<,>));
-//});
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(x => { x.SwaggerDoc("V1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Pms360API", Version = "V1" }); });
+builder.Services.AddSwaggerGen(x => {
+    x.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Pms360API", Version = "v1" });
+});
 
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
@@ -30,5 +25,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapEndpoints();
 
 app.Run();
+
