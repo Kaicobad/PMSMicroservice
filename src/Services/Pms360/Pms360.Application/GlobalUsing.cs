@@ -1,5 +1,4 @@
-﻿global using System.Reflection;
-global using Microsoft.Extensions.DependencyInjection;
+﻿global using Microsoft.Extensions.DependencyInjection;
 global using Mapster;
 global using MediatR;
 global using Pms360.Application.Response;

@@ -7,7 +7,7 @@ public static class DependencyInjection
     public static IServiceCollection AddApiServices(this IServiceCollection services)
     {
         //services.AddCarter();  
-        //services.AddExceptionHandler<CustomExceptionHandler>();  
+        services.AddExceptionHandler<CustomExceptionHandler>();  
 
         services.AddHttpContextAccessor();
         services.AddRazorPages();
