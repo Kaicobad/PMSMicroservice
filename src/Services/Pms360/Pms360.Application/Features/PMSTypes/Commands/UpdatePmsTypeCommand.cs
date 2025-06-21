@@ -1,7 +1,7 @@
 ﻿using Pms360.Domain.Entities;
 
 namespace Pms360.Application.Features.PMSTypes.Commands;
-public class UpdatePmsTypeCommand : IRequest<IResponse>
+public class UpdatePmsTypeCommand : IRequest<IResponse>,IValidatable
 {
     public UpdatePMSTypeRequest UpdatePmsType { get; set; }
 }

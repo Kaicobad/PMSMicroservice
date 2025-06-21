@@ -1,7 +1,7 @@
 ﻿
 
 namespace Pms360.Application.Features.PMSTypes.Commands;
-public class DeletePmsTypeCommand : IRequest<IResponse>
+public class DeletePmsTypeCommand : IRequest<IResponse>,IValidatable
 {
     public Guid TypeId { get; set; }
 }

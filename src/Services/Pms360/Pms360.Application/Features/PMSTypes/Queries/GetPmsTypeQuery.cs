@@ -1,13 +1,13 @@
 ﻿
 namespace Pms360.Application.Features.PMSTypes.Queries;
-public class GetPmsTypeQuery :IRequest<Response<List<PMSType>>>
+public class GetPmsTypeQuery :IRequest<IResponse<List<PMSType>>>
 {
 }
-public class GetPmsTypesQueryHandler(IPMSTypesService service) : IRequestHandler<GetPmsTypeQuery, Response<List<PMSType>>>
+public class GetPmsTypesQueryHandler(IPMSTypesService service) : IRequestHandler<GetPmsTypeQuery, IResponse<List<PMSType>>>
 {
     private readonly IPMSTypesService _service = service;
 
-    public async Task<Response<List<PMSType>>> Handle(GetPmsTypeQuery request, CancellationToken cancellationToken)
+    public async Task<IResponse<List<PMSType>>> Handle(GetPmsTypeQuery request, CancellationToken cancellationToken)
     {
         var response = await _service.GetAll(cancellationToken);
 

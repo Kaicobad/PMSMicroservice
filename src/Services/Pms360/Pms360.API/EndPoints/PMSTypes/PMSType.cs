@@ -1,10 +1,4 @@
-﻿using MediatR;
-using Pms360.API.Infrastructure;
-using Pms360.Application.Features.PMSTypes.Commands;
-using Pms360.Application.Features.PMSTypes.Queries;
-using Pms360.Application.Response;
-
-namespace Pms360.API.EndPoints.PMSTypes;
+﻿namespace Pms360.API.EndPoints.PMSTypes;
 
 public class PMSType : EndPointGroupBase
 {
@@ -13,17 +7,68 @@ public class PMSType : EndPointGroupBase
     public override void Map(WebApplication app)
     {
         var group = app.MapGroup(RoutePrefix).WithTags("PMSType"); ;
-        group.MapPost("", CreatePMSType);       
-        group.MapGet("", GetPmsTypes);
+        group.MapPost("create", CreatePMSType);
+        group.MapPut("update", UpdatePMSType);
+        group.MapGet("getAll", GetPmsTypes);
+        group.MapGet("getAllNoFilter", GetPmsTypesNoFilter);
+        group.MapGet("getById/{typeId}", GetPmsTypeById);
+        group.MapDelete("delete/{typeId}", DeletePmsType);
     }
     public async Task<IResult> CreatePMSType(ISender sender, [AsParameters] CreatePmsTypeCommand command)
     {
         var result = await sender.Send(command);
-        return Results.Ok(result);
+        if (result.IsSuccessful)
+        {
+            return Results.Ok(result);
+        }
+        return Results.BadRequest(result);
+        
+    }
+    public async Task<IResult> UpdatePMSType(ISender sender, [AsParameters] UpdatePmsTypeCommand command)
+    {
+        var result = await sender.Send(command);
+        if (result.IsSuccessful)
+        {
+            return Results.Ok(result);
+        }
+        return Results.BadRequest(result);
     }
     public async Task<IResult> GetPmsTypes(ISender sender)
     {
         var result = await sender.Send(new GetPmsTypeQuery());
-        return Results.Ok(result);
+        if (result.IsSuccessful)
+        {
+            return Results.Ok(result);
+        }
+        return Results.BadRequest(result);
+    }
+    public async Task<IResult> GetPmsTypesNoFilter(ISender sender)
+    {
+        var result = await sender.Send(new GetPmsTypeQueryNoFilter());
+        if (result.IsSuccessful)
+        {
+            return Results.Ok(result);
+        }
+        return Results.BadRequest(result);
+        
+    }
+    public async Task<IResult> GetPmsTypeById(ISender sender, Guid typeId)
+    {
+        var result = await sender.Send(new GetPmsTypeByIdQuery { TypeId = typeId });
+        if (result.IsSuccessful)
+        {
+            return Results.Ok(result);
+        }
+        return Results.BadRequest(result);
+        
+    }
+    public async Task<IResult> DeletePmsType(ISender sender, Guid typeId)
+    {
+        var result = await sender.Send(new DeletePmsTypeCommand { TypeId = typeId });
+        if (result.IsSuccessful)
+        {
+            return Results.Ok(result);
+        }
+        return Results.BadRequest(result);
     }
 }
