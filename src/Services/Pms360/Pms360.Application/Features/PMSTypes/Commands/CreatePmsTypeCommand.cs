@@ -1,5 +1,5 @@
 ﻿namespace Pms360.Application.Features.PMSTypes.Commands;
-public class CreatePmsTypeCommand: IRequest<IResponse>
+public class CreatePmsTypeCommand : IRequest<IResponse>, IValidatable
 {
     public CreatePMSTypeRequest CreatePMSType { get; set; }
 }

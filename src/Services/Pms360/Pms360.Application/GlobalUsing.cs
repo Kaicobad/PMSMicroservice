@@ -8,4 +8,6 @@ global using Microsoft.EntityFrameworkCore;
 global using FluentValidation.Results;
 global using System.Reflection;
 global using FluentValidation;
+global using Pms360.Application.Features.PMSTypes.Commands;
+global using Pms360.Application.Common.Behavior;
 

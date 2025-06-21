@@ -28,7 +28,20 @@ public class PMSTypeService(IApplicationDbContext dbContext) : IPMSTypesService
 
     public async Task<List<PMSType>> GetAll(CancellationToken cancellationToken)
     {
-        var types = await _dbContext.PMSTypes.ToListAsync(cancellationToken);
+        var types = await _dbContext.PMSTypes.Where(x=>x.IsActive== true).ToListAsync();
+        if (types.Any())
+        {
+            return types;
+        }
+        else
+        {
+            return new List<PMSType>();
+        }
+    }
+
+    public async Task<List<PMSType>> GetAllNoFilter(CancellationToken cancellationToken)
+    {
+        var types = await _dbContext.PMSTypes.ToListAsync();
         if (types.Any())
         {
             return types;
@@ -48,6 +61,11 @@ public class PMSTypeService(IApplicationDbContext dbContext) : IPMSTypesService
     public async Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _dbContext.PMSTypes.AnyAsync(types => types.TypeId == id);
+    }
+
+    public async Task<bool> IsNameExistsAsync(string name, CancellationToken cancellationToken)
+    {
+        return await _dbContext.PMSTypes.AnyAsync(types => types.Name == name);
     }
 
     public async Task<PMSType> UpdateAsync(PMSType pmsType, CancellationToken cancellationToken)

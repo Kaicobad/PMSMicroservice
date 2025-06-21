@@ -6,3 +6,6 @@ global using Pms360.API.Infrastructure;
 global using Pms360.API;
 global using Microsoft.AspNetCore.Diagnostics;
 global using Pms360.Application.Common.Exceptions;
+global using MediatR;
+global using Pms360.Application.Features.PMSTypes.Commands;
+global using Pms360.Application.Features.PMSTypes.Queries;

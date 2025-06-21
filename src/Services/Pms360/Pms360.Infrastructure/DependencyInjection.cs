@@ -18,7 +18,6 @@ public static class DependencyInjection
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
         });
 
-        // Register IApplicationDbContext before services that depend on it
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<IPMSTypesService, PMSTypeService>();
 

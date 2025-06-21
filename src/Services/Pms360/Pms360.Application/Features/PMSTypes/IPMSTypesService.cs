@@ -13,5 +13,7 @@ public interface IPMSTypesService
     Task<int> DeleteAsync(Guid id, CancellationToken cancellationToken);
     Task<PMSType> GetByIdAsync(Guid id, CancellationToken cancellationToken);
     Task<List<PMSType>> GetAll(CancellationToken cancellationToken);
+    Task<List<PMSType>> GetAllNoFilter(CancellationToken cancellationToken);
     Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken);
+    Task<bool> IsNameExistsAsync(string name, CancellationToken cancellationToken);
 }
