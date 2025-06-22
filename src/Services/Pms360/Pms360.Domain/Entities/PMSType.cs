@@ -15,4 +15,6 @@ public class PMSType : BaseEntity
     public required string Name { get; set; }
     [StringLength(200)]
     public string Description { get; set; }
+
+    public virtual ICollection<PMSCycle> PMSCycles { get; set; } = [];
 }

@@ -6,11 +6,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Pms360.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class addedAllthetables : Migration
+    public partial class ChangesDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AssessorTypes",
+                columns: table => new
+                {
+                    TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TypeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssessorTypes", x => x.TypeId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "EvaluationCriteria",
                 columns: table => new
@@ -54,11 +73,30 @@ namespace Pms360.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PMSTypes",
+                columns: table => new
+                {
+                    TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PMSTypes", x => x.TypeId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CriteriaScales",
                 columns: table => new
                 {
-                    ScaleId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ScaleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CriteriaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Label = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ScoreValue = table.Column<int>(type: "int", nullable: false),
@@ -89,8 +127,8 @@ namespace Pms360.Infrastructure.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PMSTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PMSDurationTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StartDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    EndDate = table.Column<DateOnly>(type: "date", nullable: false),
                     CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -122,7 +160,7 @@ namespace Pms360.Infrastructure.Migrations
                 {
                     SummaryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CycleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    EmpId = table.Column<long>(type: "bigint", nullable: false),
                     AverageScore = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     FinalRatingPercentage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     FinalComment = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -153,9 +191,8 @@ namespace Pms360.Infrastructure.Migrations
                 {
                     AssessorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CycleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    AssesseeEmpId = table.Column<int>(type: "int", nullable: true),
-                    AssessorEmpId = table.Column<int>(type: "int", nullable: true),
-                    AssessorTypeId = table.Column<int>(type: "int", nullable: true),
+                    AssessorEmpId = table.Column<long>(type: "bigint", nullable: false),
+                    AssessorTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -168,61 +205,16 @@ namespace Pms360.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_PMSAssessors", x => x.AssessorId);
                     table.ForeignKey(
+                        name: "FK_PMSAssessors_AssessorTypes_AssessorTypeId",
+                        column: x => x.AssessorTypeId,
+                        principalTable: "AssessorTypes",
+                        principalColumn: "TypeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_PMSAssessors_PMSCycles_CycleId",
                         column: x => x.CycleId,
                         principalTable: "PMSCycles",
                         principalColumn: "CycleId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PMSCycleDetails",
-                columns: table => new
-                {
-                    CycleDetailsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CycleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EmpId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PMSCycleDetails", x => x.CycleDetailsId);
-                    table.ForeignKey(
-                        name: "FK_PMSCycleDetails_PMSCycles_CycleId",
-                        column: x => x.CycleId,
-                        principalTable: "PMSCycles",
-                        principalColumn: "CycleId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AssessorTypes",
-                columns: table => new
-                {
-                    TypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TypeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PMSAssessorAssessorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AssessorTypes", x => x.TypeId);
-                    table.ForeignKey(
-                        name: "FK_AssessorTypes_PMSAssessors_PMSAssessorAssessorId",
-                        column: x => x.PMSAssessorAssessorId,
-                        principalTable: "PMSAssessors",
-                        principalColumn: "AssessorId");
                 });
 
             migrationBuilder.CreateTable(
@@ -261,12 +253,69 @@ namespace Pms360.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PMSCycleDetails",
+                columns: table => new
+                {
+                    CycleDetailsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CycleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EmpId = table.Column<long>(type: "bigint", nullable: false),
+                    PMSAssessorAssessorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PMSCycleDetails", x => x.CycleDetailsId);
+                    table.ForeignKey(
+                        name: "FK_PMSCycleDetails_PMSAssessors_PMSAssessorAssessorId",
+                        column: x => x.PMSAssessorAssessorId,
+                        principalTable: "PMSAssessors",
+                        principalColumn: "AssessorId");
+                    table.ForeignKey(
+                        name: "FK_PMSCycleDetails_PMSCycles_CycleId",
+                        column: x => x.CycleId,
+                        principalTable: "PMSCycles",
+                        principalColumn: "CycleId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PMSAssessorDetails",
+                columns: table => new
+                {
+                    AssessorDetailsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AssessorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CycleDetailsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PMSAssessorDetails", x => x.AssessorDetailsId);
+                    table.ForeignKey(
+                        name: "FK_PMSAssessorDetails_PMSAssessors_AssessorId",
+                        column: x => x.AssessorId,
+                        principalTable: "PMSAssessors",
+                        principalColumn: "AssessorId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PMSAssessorDetails_PMSCycleDetails_CycleDetailsId",
+                        column: x => x.CycleDetailsId,
+                        principalTable: "PMSCycleDetails",
+                        principalColumn: "CycleDetailsId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PMSCycleDetailsWithCriteriaMappings",
                 columns: table => new
                 {
                     CycleDetailsCriteriaMappingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CycleDetailsId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CriteriaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    CycleDetailsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CriteriaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -275,18 +324,15 @@ namespace Pms360.Infrastructure.Migrations
                         name: "FK_PMSCycleDetailsWithCriteriaMappings_EvaluationCriteria_CriteriaId",
                         column: x => x.CriteriaId,
                         principalTable: "EvaluationCriteria",
-                        principalColumn: "CriteriaId");
+                        principalColumn: "CriteriaId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PMSCycleDetailsWithCriteriaMappings_PMSCycleDetails_CycleDetailsId",
                         column: x => x.CycleDetailsId,
                         principalTable: "PMSCycleDetails",
-                        principalColumn: "CycleDetailsId");
+                        principalColumn: "CycleDetailsId",
+                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AssessorTypes_PMSAssessorAssessorId",
-                table: "AssessorTypes",
-                column: "PMSAssessorAssessorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CriteriaScales_CriteriaId",
@@ -309,6 +355,21 @@ namespace Pms360.Infrastructure.Migrations
                 column: "CycleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PMSAssessorDetails_AssessorId",
+                table: "PMSAssessorDetails",
+                column: "AssessorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PMSAssessorDetails_CycleDetailsId",
+                table: "PMSAssessorDetails",
+                column: "CycleDetailsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PMSAssessors_AssessorTypeId",
+                table: "PMSAssessors",
+                column: "AssessorTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PMSAssessors_CycleId",
                 table: "PMSAssessors",
                 column: "CycleId");
@@ -317,6 +378,11 @@ namespace Pms360.Infrastructure.Migrations
                 name: "IX_PMSCycleDetails_CycleId",
                 table: "PMSCycleDetails",
                 column: "CycleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PMSCycleDetails_PMSAssessorAssessorId",
+                table: "PMSCycleDetails",
+                column: "PMSAssessorAssessorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PMSCycleDetailsWithCriteriaMappings_CriteriaId",
@@ -343,9 +409,6 @@ namespace Pms360.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AssessorTypes");
-
-            migrationBuilder.DropTable(
                 name: "CriteriaScales");
 
             migrationBuilder.DropTable(
@@ -355,10 +418,10 @@ namespace Pms360.Infrastructure.Migrations
                 name: "EvaluationSummaries");
 
             migrationBuilder.DropTable(
-                name: "PMSCycleDetailsWithCriteriaMappings");
+                name: "PMSAssessorDetails");
 
             migrationBuilder.DropTable(
-                name: "PMSAssessors");
+                name: "PMSCycleDetailsWithCriteriaMappings");
 
             migrationBuilder.DropTable(
                 name: "EvaluationCriteria");
@@ -367,10 +430,19 @@ namespace Pms360.Infrastructure.Migrations
                 name: "PMSCycleDetails");
 
             migrationBuilder.DropTable(
+                name: "PMSAssessors");
+
+            migrationBuilder.DropTable(
+                name: "AssessorTypes");
+
+            migrationBuilder.DropTable(
                 name: "PMSCycles");
 
             migrationBuilder.DropTable(
                 name: "PMSDurationTypes");
+
+            migrationBuilder.DropTable(
+                name: "PMSTypes");
         }
     }
 }

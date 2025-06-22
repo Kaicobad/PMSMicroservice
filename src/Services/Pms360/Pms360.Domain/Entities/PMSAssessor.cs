@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +12,13 @@ public class PMSAssessor : BaseEntity
     [Key]
     public Guid AssessorId { get; set; }
     public Guid? CycleId { get; set; }
-    public int? AssesseeEmpId { get; set; } // Fixed spelling error
-    public int? AssessorEmpId { get; set; }
-    public int? AssessorTypeId { get; set; }
+    public long AssessorEmpId { get; set; }
+    public Guid AssessorTypeId { get; set; }
+    [ForeignKey("CycleId")]
     public PMSCycle Cycle { get; set; }
 
-    public ICollection<AssessorType> AssessorTypes { get; set; }
-    public ICollection<EvaluationResponse> Responses { get; set; }
+    [ForeignKey("AssessorTypeId")]
+    public virtual AssessorType AssessorType { get; set; }
+    public virtual ICollection<EvaluationResponse> EvaluationResponses { get; set; }
+    public virtual ICollection<PMSCycleDetails> PMSCycleDetails { get; set; } = new List<PMSCycleDetails>();
 }

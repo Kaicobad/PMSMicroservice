@@ -43,9 +43,6 @@ namespace Pms360.Infrastructure.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("PMSAssessorAssessorId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("TypeName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -58,18 +55,14 @@ namespace Pms360.Infrastructure.Migrations
 
                     b.HasKey("TypeId");
 
-                    b.HasIndex("PMSAssessorAssessorId");
-
                     b.ToTable("AssessorTypes");
                 });
 
             modelBuilder.Entity("Pms360.Domain.Entities.CriteriaScale", b =>
                 {
-                    b.Property<int>("ScaleId")
+                    b.Property<Guid>("ScaleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScaleId"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CreatedById")
                         .HasColumnType("uniqueidentifier");
@@ -77,8 +70,7 @@ namespace Pms360.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("CriteriaId")
-                        .IsRequired()
+                    b.Property<Guid>("CriteriaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("DeletedById")
@@ -228,8 +220,8 @@ namespace Pms360.Infrastructure.Migrations
                     b.Property<DateTime>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<long>("EmpId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("FinalComment")
                         .HasColumnType("nvarchar(max)");
@@ -265,14 +257,11 @@ namespace Pms360.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("AssesseeEmpId")
-                        .HasColumnType("int");
+                    b.Property<long>("AssessorEmpId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int?>("AssessorEmpId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AssessorTypeId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("AssessorTypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CreatedById")
                         .HasColumnType("uniqueidentifier");
@@ -300,9 +289,32 @@ namespace Pms360.Infrastructure.Migrations
 
                     b.HasKey("AssessorId");
 
+                    b.HasIndex("AssessorTypeId");
+
                     b.HasIndex("CycleId");
 
                     b.ToTable("PMSAssessors");
+                });
+
+            modelBuilder.Entity("Pms360.Domain.Entities.PMSAssessorDetails", b =>
+                {
+                    b.Property<Guid>("AssessorDetailsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AssessorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CycleDetailsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AssessorDetailsId");
+
+                    b.HasIndex("AssessorId");
+
+                    b.HasIndex("CycleDetailsId");
+
+                    b.ToTable("PMSAssessorDetails");
                 });
 
             modelBuilder.Entity("Pms360.Domain.Entities.PMSCycle", b =>
@@ -323,8 +335,8 @@ namespace Pms360.Infrastructure.Migrations
                     b.Property<DateTime>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("EndDate")
+                        .HasColumnType("date");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -335,8 +347,8 @@ namespace Pms360.Infrastructure.Migrations
                     b.Property<Guid>("PMSTypeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -383,6 +395,9 @@ namespace Pms360.Infrastructure.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<Guid?>("PMSAssessorAssessorId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("UpdatedBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -393,6 +408,8 @@ namespace Pms360.Infrastructure.Migrations
 
                     b.HasIndex("CycleId");
 
+                    b.HasIndex("PMSAssessorAssessorId");
+
                     b.ToTable("PMSCycleDetails");
                 });
 
@@ -402,10 +419,10 @@ namespace Pms360.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CriteriaId")
+                    b.Property<Guid>("CriteriaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CycleDetailsId")
+                    b.Property<Guid>("CycleDetailsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("CycleDetailsCriteriaMappingId");
@@ -499,28 +516,21 @@ namespace Pms360.Infrastructure.Migrations
                     b.ToTable("PMSTypes");
                 });
 
-            modelBuilder.Entity("Pms360.Domain.Entities.AssessorType", b =>
-                {
-                    b.HasOne("Pms360.Domain.Entities.PMSAssessor", null)
-                        .WithMany("AssessorTypes")
-                        .HasForeignKey("PMSAssessorAssessorId");
-                });
-
             modelBuilder.Entity("Pms360.Domain.Entities.CriteriaScale", b =>
                 {
-                    b.HasOne("Pms360.Domain.Entities.EvaluationCriteria", "Criteria")
-                        .WithMany("Scales")
+                    b.HasOne("Pms360.Domain.Entities.EvaluationCriteria", "EvaluationCriteria")
+                        .WithMany("CriteriaScales")
                         .HasForeignKey("CriteriaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Criteria");
+                    b.Navigation("EvaluationCriteria");
                 });
 
             modelBuilder.Entity("Pms360.Domain.Entities.EvaluationResponse", b =>
                 {
                     b.HasOne("Pms360.Domain.Entities.PMSAssessor", "Assessor")
-                        .WithMany("Responses")
+                        .WithMany("EvaluationResponses")
                         .HasForeignKey("AssessorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -549,11 +559,38 @@ namespace Pms360.Infrastructure.Migrations
 
             modelBuilder.Entity("Pms360.Domain.Entities.PMSAssessor", b =>
                 {
+                    b.HasOne("Pms360.Domain.Entities.AssessorType", "AssessorType")
+                        .WithMany("PMSAssessors")
+                        .HasForeignKey("AssessorTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Pms360.Domain.Entities.PMSCycle", "Cycle")
                         .WithMany("Assessors")
                         .HasForeignKey("CycleId");
 
+                    b.Navigation("AssessorType");
+
                     b.Navigation("Cycle");
+                });
+
+            modelBuilder.Entity("Pms360.Domain.Entities.PMSAssessorDetails", b =>
+                {
+                    b.HasOne("Pms360.Domain.Entities.PMSAssessor", "Assessor")
+                        .WithMany()
+                        .HasForeignKey("AssessorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Pms360.Domain.Entities.PMSCycleDetails", "CycleDetails")
+                        .WithMany("PMSAssessorDetails")
+                        .HasForeignKey("CycleDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Assessor");
+
+                    b.Navigation("CycleDetails");
                 });
 
             modelBuilder.Entity("Pms360.Domain.Entities.PMSCycle", b =>
@@ -565,7 +602,7 @@ namespace Pms360.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Pms360.Domain.Entities.PMSType", "PMSType")
-                        .WithMany()
+                        .WithMany("PMSCycles")
                         .HasForeignKey("PMSTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -583,6 +620,10 @@ namespace Pms360.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Pms360.Domain.Entities.PMSAssessor", null)
+                        .WithMany("PMSCycleDetails")
+                        .HasForeignKey("PMSAssessorAssessorId");
+
                     b.Navigation("Cycle");
                 });
 
@@ -590,29 +631,38 @@ namespace Pms360.Infrastructure.Migrations
                 {
                     b.HasOne("Pms360.Domain.Entities.EvaluationCriteria", "Criteria")
                         .WithMany()
-                        .HasForeignKey("CriteriaId");
+                        .HasForeignKey("CriteriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Pms360.Domain.Entities.PMSCycleDetails", "CycleDetails")
                         .WithMany("CriteriaMappings")
-                        .HasForeignKey("CycleDetailsId");
+                        .HasForeignKey("CycleDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Criteria");
 
                     b.Navigation("CycleDetails");
                 });
 
+            modelBuilder.Entity("Pms360.Domain.Entities.AssessorType", b =>
+                {
+                    b.Navigation("PMSAssessors");
+                });
+
             modelBuilder.Entity("Pms360.Domain.Entities.EvaluationCriteria", b =>
                 {
-                    b.Navigation("Responses");
+                    b.Navigation("CriteriaScales");
 
-                    b.Navigation("Scales");
+                    b.Navigation("Responses");
                 });
 
             modelBuilder.Entity("Pms360.Domain.Entities.PMSAssessor", b =>
                 {
-                    b.Navigation("AssessorTypes");
+                    b.Navigation("EvaluationResponses");
 
-                    b.Navigation("Responses");
+                    b.Navigation("PMSCycleDetails");
                 });
 
             modelBuilder.Entity("Pms360.Domain.Entities.PMSCycle", b =>
@@ -627,9 +677,16 @@ namespace Pms360.Infrastructure.Migrations
             modelBuilder.Entity("Pms360.Domain.Entities.PMSCycleDetails", b =>
                 {
                     b.Navigation("CriteriaMappings");
+
+                    b.Navigation("PMSAssessorDetails");
                 });
 
             modelBuilder.Entity("Pms360.Domain.Entities.PMSDurationType", b =>
+                {
+                    b.Navigation("PMSCycles");
+                });
+
+            modelBuilder.Entity("Pms360.Domain.Entities.PMSType", b =>
                 {
                     b.Navigation("PMSCycles");
                 });

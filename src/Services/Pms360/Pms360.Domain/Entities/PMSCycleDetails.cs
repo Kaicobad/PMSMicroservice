@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,9 @@ public class PMSCycleDetails :BaseEntity
     [Required]
     public long EmpId { get; set; }
 
-    public PMSCycle Cycle { get; set; }
-    public ICollection<PMSCycleDetailsWithCriteriaMapping> CriteriaMappings { get; set; }
+
+    [ForeignKey("CycleId")]
+    public virtual PMSCycle Cycle { get; set; }
+    public virtual ICollection<PMSAssessorDetails> PMSAssessorDetails { get; set; } = [];
+    public virtual ICollection<PMSCycleDetailsWithCriteriaMapping> CriteriaMappings { get; set; }
 }

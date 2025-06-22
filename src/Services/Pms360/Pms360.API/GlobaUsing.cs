@@ -9,3 +9,4 @@ global using Pms360.Application.Common.Exceptions;
 global using MediatR;
 global using Pms360.Application.Features.PMSTypes.Commands;
 global using Pms360.Application.Features.PMSTypes.Queries;
+global using Pms360.Application.Features.PMSDurationTypes.Commands;

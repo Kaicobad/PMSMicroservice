@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +12,13 @@ public class EvaluationSummary :BaseEntity
     [Key]
     public Guid SummaryId { get; set; }
     public Guid CycleId { get; set; }
-    public int EmployeeId { get; set; }
+    public long EmpId { get; set; }
     public decimal AverageScore { get; set; }
     public decimal FinalRatingPercentage { get; set; }
     public string FinalComment { get; set; }
     public int FinalizedBy { get; set; }
     public DateTime FinalizedDate { get; set; }
 
-    public PMSCycle Cycle { get; set; }
+    [ForeignKey("CycleId")]
+    public virtual PMSCycle Cycle { get; set; }
 }
