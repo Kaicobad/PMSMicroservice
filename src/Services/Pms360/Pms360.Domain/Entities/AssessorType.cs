@@ -11,5 +11,7 @@ public class AssessorType :BaseEntity
     [Key]
     public Guid TypeId { get; set; }
     [Required]
-    public string TypeName { get; set; } 
+    public string TypeName { get; set; }
+    public virtual ICollection<PMSAssessor> PMSAssessors { get; set; } = [];
 }
+

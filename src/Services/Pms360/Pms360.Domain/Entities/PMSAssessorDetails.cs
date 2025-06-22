@@ -6,18 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Pms360.Domain.Entities;
-public class EvaluationResponse : BaseEntity
+public class PMSAssessorDetails
 {
     [Required]
     [Key]
-    public int ResponseId { get; set; }
+    public Guid AssessorDetailsId { get; set; }
     public Guid AssessorId { get; set; }
-    public Guid CriteriaId { get; set; }
-    public int Score { get; set; }
-    public string Comment { get; set; }
+
+    public Guid CycleDetailsId { get; set; }
+
     [ForeignKey("AssessorId")]
     public virtual PMSAssessor Assessor { get; set; }
 
-    [ForeignKey("CriteriaId")]
-    public virtual EvaluationCriteria Criteria { get; set; }
+    [ForeignKey("CycleDetailsId")]
+    public virtual PMSCycleDetails CycleDetails { get; set; }
 }

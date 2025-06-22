@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +14,15 @@ public class PMSCycle : BaseEntity
     public string Title { get; set; }
     public Guid PMSTypeId { get; set; }
     public Guid PMSDurationTypeId { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
+    public DateOnly StartDate { get; set; }
+    public DateOnly EndDate { get; set; }
 
-    public PMSType PMSType { get; set; }
-    public PMSDurationType PMSDurationType { get; set; }
+    [ForeignKey("PMSTypeId")]
+    public virtual PMSType PMSType { get; set; }
 
-    public ICollection<PMSCycleDetails> CycleDetails { get; set; }
-    public ICollection<PMSAssessor> Assessors { get; set; }
-    public ICollection<EvaluationSummary> EvaluationSummaries { get; set; }
+    [ForeignKey("PMSDurationTypeId")]
+    public virtual PMSDurationType PMSDurationType { get; set; }
+    public virtual ICollection<PMSCycleDetails> CycleDetails { get; set; }
+    public virtual ICollection<PMSAssessor> Assessors { get; set; }
+    public virtual ICollection<EvaluationSummary> EvaluationSummaries { get; set; }
 }

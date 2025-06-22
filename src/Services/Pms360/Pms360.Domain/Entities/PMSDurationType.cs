@@ -15,5 +15,5 @@ public class PMSDurationType :BaseEntity
     public required string Name { get; set; }
     [StringLength(200)]
     public string Description { get; set; }
-    public ICollection<PMSCycle> PMSCycles { get; set; }
+    public virtual ICollection<PMSCycle> PMSCycles { get; set; }
 }
