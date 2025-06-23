@@ -11,6 +11,7 @@ public class PMSType : EndPointGroupBase
         group.MapPut("update", UpdatePMSType);
         group.MapGet("getAll", GetPmsTypes);
         group.MapGet("getAllNoFilter", GetPmsTypesNoFilter);
+        group.MapGet("getAllPaginated", GetPmsTypesWithPagination);
         group.MapGet("getById/{typeId}", GetPmsTypeById);
         group.MapDelete("delete/{typeId}", DeletePmsType);
     }
@@ -51,6 +52,16 @@ public class PMSType : EndPointGroupBase
         }
         return Results.BadRequest(result);
         
+    }
+    public async Task<IResult> GetPmsTypesWithPagination(ISender sender, [AsParameters] GetPmsTypePaginatedQuery query)
+    {
+        var result = await sender.Send(query);
+        if (result.IsSuccessful)
+        {
+            return Results.Ok(result);
+        }
+        return Results.BadRequest(result);
+
     }
     public async Task<IResult> GetPmsTypeById(ISender sender, Guid typeId)
     {

@@ -8,12 +8,13 @@ using Pms360.Application.Models.Pagination;
 namespace Pms360.Application.Common.Mappings;
 public static class MappingExtensions
 {
-    public class PaginationHelper
+    public async static Task<PaginatedList<TDestination>> PaginatedListAsync<TDestination>(this IQueryable<TDestination> queryable, int pageNumber, int pageSize) where TDestination : class
     {
-        public static Task<PaginatedList<TDestination>> PaginatedListAsync<TDestination>(IQueryable<TDestination> queryable, int pageNumber, int pageSize) where TDestination : class
-        {
-            return PaginatedList<TDestination>.CreateAsync(queryable.AsNoTracking(), pageNumber, pageSize);
-        }
+        return await PaginatedList<TDestination>.CreateAsync(queryable.AsNoTracking(), pageNumber, pageSize);
     }
 
+    public static Task<List<TDestination>> ProjectToListAsync<TDestination>(this IQueryable queryable) where TDestination : class
+    {
+        return queryable.ProjectToType<TDestination>().AsNoTracking().ToListAsync();
+    }
 }
