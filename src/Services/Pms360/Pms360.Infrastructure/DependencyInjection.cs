@@ -21,7 +21,9 @@ public static class DependencyInjection
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<IPMSTypesService, PMSTypeService>();
         services.AddScoped<IPMSDurationTypeService,PMSDurationTypeService>();
+        services.AddScoped<IMapper,Mapper>();
 
         return services;
     }
+
 }

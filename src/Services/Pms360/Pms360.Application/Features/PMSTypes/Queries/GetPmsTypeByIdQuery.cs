@@ -1,6 +1,6 @@
 ﻿
 namespace Pms360.Application.Features.PMSTypes.Queries;
-public class GetPmsTypeByIdQuery : IRequest<IResponse<PMSType>>
+public class GetPmsTypeByIdQuery : IRequest<IResponse<PMSType>>, IValidatable
 {
     public Guid TypeId { get; set; }
 }

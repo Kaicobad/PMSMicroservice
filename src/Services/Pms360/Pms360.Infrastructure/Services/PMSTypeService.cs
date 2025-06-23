@@ -1,10 +1,10 @@
-﻿
-using System.Threading;
+﻿using Pms360.Application.Models.Requests;
 
 namespace Pms360.Infrastructure.Services;
-public class PMSTypeService(IApplicationDbContext dbContext) : IPMSTypesService
+public class PMSTypeService(IApplicationDbContext dbContext, IMapper mapper) : IPMSTypesService
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
+    private readonly IMapper _mapper = mapper;
 
     public async Task<Guid> CreateAsync(PMSType pmsType, CancellationToken cancellationToken)
     {
@@ -28,7 +28,7 @@ public class PMSTypeService(IApplicationDbContext dbContext) : IPMSTypesService
 
     public async Task<List<PMSType>> GetAll(CancellationToken cancellationToken)
     {
-        var types = await _dbContext.PMSTypes.Where(x=>x.IsActive== true).ToListAsync();
+        var types = await _dbContext.PMSTypes.Where(x => x.IsActive == true).ToListAsync(cancellationToken);
         if (types.Any())
         {
             return types;
@@ -41,7 +41,7 @@ public class PMSTypeService(IApplicationDbContext dbContext) : IPMSTypesService
 
     public async Task<List<PMSType>> GetAllNoFilter(CancellationToken cancellationToken)
     {
-        var types = await _dbContext.PMSTypes.ToListAsync();
+        var types = await _dbContext.PMSTypes.ToListAsync(cancellationToken);
         if (types.Any())
         {
             return types;
@@ -50,6 +50,15 @@ public class PMSTypeService(IApplicationDbContext dbContext) : IPMSTypesService
         {
             return new List<PMSType>();
         }
+    }
+
+    public async Task<PaginatedList<PMSType>> GetAllWithPagination(int pageNumber,int pageSize,CancellationToken cancellationToken)
+    {
+        var query = _dbContext.PMSTypes
+        .OrderBy(x => x.Name)
+        .ProjectToType<PMSType>(_mapper.Config);
+
+         return await query.PaginatedListAsync(pageNumber, pageSize);
     }
 
     public async Task<PMSType> GetByIdAsync(Guid id, CancellationToken cancellationToken)
