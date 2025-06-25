@@ -2,12 +2,12 @@
 
 namespace Pms360.API.EndPoints.PMSDurationTypes;
 
-public class PMSDurationType : EndPointGroupBase
+public class PMSDurationTypeEndPoint : EndPointGroupBase
 {
     private const string RoutePrefix = "api/v1/pms360/pmsdurationtype";
     public override void Map(WebApplication app)
     {
-        var group = app.MapGroup(RoutePrefix).WithTags("PMSDurationType"); ;
+        var group = app.MapGroup(RoutePrefix).WithTags("PMSDurationType").WithDescription("TO Fix a Duration Types like eg:half-yearly,yearly");
         group.MapPost("create", CreatePMSDurationType);
         group.MapGet("getAll", GetPmsDurationTypes);
     }

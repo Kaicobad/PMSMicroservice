@@ -1,6 +1,6 @@
 ﻿namespace Pms360.API.EndPoints.PMSTypes;
 
-public class PMSType : EndPointGroupBase
+public class PMSTypeEndPoint : EndPointGroupBase
 {
     private const string RoutePrefix = "api/v1/pms360/pmstype";
 
