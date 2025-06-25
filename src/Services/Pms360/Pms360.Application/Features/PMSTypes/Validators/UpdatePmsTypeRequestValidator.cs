@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pms360.Application.Features.PMSTypes.Validators;
+﻿namespace Pms360.Application.Features.PMSTypes.Validators;
 public class UpdatePmsTypeRequestValidator : AbstractValidator<UpdatePMSTypeRequest>
 {
     public UpdatePmsTypeRequestValidator(IPMSTypesService service)

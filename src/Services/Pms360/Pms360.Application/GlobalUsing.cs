@@ -11,5 +11,8 @@ global using FluentValidation;
 global using Pms360.Application.Features.PMSTypes.Commands;
 global using Pms360.Application.Common.Behavior;
 global using Pms360.Application.Models.Pagination;
+global using Pms360.Application.Features.PMSCycles.Commands;
+global using Pms360.Application.Features.PMSDurationTypes;
+global using Pms360.Application.Features.PMSTypes;
 
 

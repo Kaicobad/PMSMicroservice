@@ -13,6 +13,7 @@ global using Pms360.Application.Models.Pagination;
 global using Mapster;
 global using MapsterMapper;
 global using Pms360.Application.Common.Mappings;
+global using Pms360.Application.Features.PMSCycles;
 
 
 

@@ -1,4 +1,6 @@
-﻿namespace Pms360.Infrastructure.Services;
+﻿using Pms360.Domain.Entities;
+
+namespace Pms360.Infrastructure.Services;
 public class PMSDurationTypeService(IApplicationDbContext dbContext) : IPMSDurationTypeService
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
@@ -38,18 +40,25 @@ public class PMSDurationTypeService(IApplicationDbContext dbContext) : IPMSDurat
         throw new NotImplementedException();
     }
 
-    public Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await _dbContext.PMSDurationTypes.AnyAsync(types => types.DurationTypeId == id);
     }
 
-    public Task<bool> IsNameExistsAsync(string name, CancellationToken cancellationToken)
+    public async Task<bool> IsNameExistsAsync(string name, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await _dbContext.PMSDurationTypes.AnyAsync(types => types.Name == name);
     }
 
-    public Task<PMSDurationType> UpdateAsync(PMSDurationType pmsDurationType, CancellationToken cancellationToken)
+    public async Task<PMSDurationType> UpdateAsync(PMSDurationType pmsDurationType, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+
+        if (await IsExistsAsync(pmsDurationType.DurationTypeId, cancellationToken))
+        {
+            _dbContext.PMSDurationTypes.Update(pmsDurationType);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            return pmsDurationType;
+        }
+        return null;
     }
 }
