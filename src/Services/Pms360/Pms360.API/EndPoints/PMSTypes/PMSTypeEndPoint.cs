@@ -1,4 +1,6 @@
-﻿namespace Pms360.API.EndPoints.PMSTypes;
+﻿using Microsoft.AspNetCore.Builder;
+
+namespace Pms360.API.EndPoints.PMSTypes;
 
 public class PMSTypeEndPoint : EndPointGroupBase
 {
@@ -6,7 +8,9 @@ public class PMSTypeEndPoint : EndPointGroupBase
 
     public override void Map(WebApplication app)
     {
-        var group = app.MapGroup(RoutePrefix).WithTags("PMSType"); ;
+        var group = app.MapGroup(RoutePrefix).WithTags("PMSType").WithDescription("Works with PMS Types like individual. departmental eto")
+            .RequireAuthorization();
+
         group.MapPost("create", CreatePMSType);
         group.MapPut("update", UpdatePMSType);
         group.MapGet("getAll", GetPmsTypes);
