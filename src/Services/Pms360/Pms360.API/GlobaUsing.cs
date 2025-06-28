@@ -10,3 +10,7 @@ global using MediatR;
 global using Pms360.Application.Features.PMSTypes.Commands;
 global using Pms360.Application.Features.PMSTypes.Queries;
 global using Pms360.Application.Features.PMSDurationTypes.Commands;
+global using Microsoft.OpenApi.Models;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.IdentityModel.Tokens;
+global using System.Text;
