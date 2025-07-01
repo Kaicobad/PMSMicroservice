@@ -26,6 +26,13 @@ public partial class CoreERPDbContext : DbContext
     public virtual DbSet<HumanResourceEmployeeBasic> HumanResourceEmployeeBasics { get; set; }
 
     public virtual DbSet<HumanResourceEmployeeContact> HumanResourceEmployeeContacts { get; set; }
+    public virtual DbSet<RDeptSection> RDeptSections { get; set; }
+
+    public virtual DbSet<RSecWing> RSecWings { get; set; }
+
+    public virtual DbSet<RUnitDept> RUnitDepts { get; set; }
+
+    public virtual DbSet<RWingTeam> RWingTeams { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -422,6 +429,52 @@ public partial class CoreERPDbContext : DbContext
             entity.Property(e => e.SocialMediaId)
                 .HasMaxLength(50)
                 .HasColumnName("SocialMediaID");
+        });
+
+        modelBuilder.Entity<RDeptSection>(entity =>
+        {
+            entity.HasKey(e => e.DsecId).HasName("PK__R.DeptSection");
+
+            entity.ToTable("R_DeptSection");
+
+            entity.Property(e => e.DsecId).HasColumnName("DSecID");
+            entity.Property(e => e.SectionId).HasColumnName("SectionID");
+            entity.Property(e => e.UdepId).HasColumnName("UDepID");
+        });
+
+        modelBuilder.Entity<RSecWing>(entity =>
+        {
+            entity.HasKey(e => e.SwingId);
+
+            entity.ToTable("R_SecWing");
+
+            entity.HasIndex(e => new { e.DsecId, e.WingId }, "IX_R_SecWing");
+
+            entity.Property(e => e.SwingId).HasColumnName("SWingID");
+            entity.Property(e => e.DsecId).HasColumnName("DSecID");
+            entity.Property(e => e.WingId).HasColumnName("WingID");
+        });
+
+        modelBuilder.Entity<RUnitDept>(entity =>
+        {
+            entity.HasKey(e => e.UdepId).HasName("PK_R.UnitDept");
+
+            entity.ToTable("R_UnitDept");
+
+            entity.Property(e => e.UdepId).HasColumnName("UDepID");
+            entity.Property(e => e.DepartmentId).HasColumnName("DepartmentID");
+            entity.Property(e => e.UnitId).HasColumnName("UnitID");
+        });
+
+        modelBuilder.Entity<RWingTeam>(entity =>
+        {
+            entity.HasKey(e => e.WteamId).HasName("PK__R.WingTeam");
+
+            entity.ToTable("R_WingTeam");
+
+            entity.Property(e => e.WteamId).HasColumnName("WTeamID");
+            entity.Property(e => e.SwingId).HasColumnName("SWingID");
+            entity.Property(e => e.TeamId).HasColumnName("TeamID");
         });
 
         OnModelCreatingPartial(modelBuilder);

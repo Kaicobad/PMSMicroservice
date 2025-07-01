@@ -1,5 +1,4 @@
-﻿
-namespace Pms360.Application.Features.PMSDurationTypes.Commands;
+﻿namespace Pms360.Application.Features.PMSDurationTypes.Commands;
 public class CreatePmsDurationTypeCommand : IRequest<IResponse>
 {
     public CreatePMSDurationTypeRequest CreatePmsDurationType { get; set; }

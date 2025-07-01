@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Pms360.Application.Features.PMSTypes;
-using Pms360.Application.Features.PMSTypes.Queries;
-
-namespace Pms360.Application.Features.PMSDurationTypes.Queries;
+﻿namespace Pms360.Application.Features.PMSDurationTypes.Queries;
 public class GetPmsDurationTypeQuery : IRequest<IResponse<List<PMSDurationType>>>
 {
 }

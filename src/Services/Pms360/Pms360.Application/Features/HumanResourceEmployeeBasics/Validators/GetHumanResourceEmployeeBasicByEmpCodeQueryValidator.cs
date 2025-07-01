@@ -1,6 +1,4 @@
-﻿using Pms360.Application.Features.HumanResourceEmployeeBasics.Queries;
-
-namespace Pms360.Application.Features.HumanResourceEmployeeBasics.Validators;
+﻿namespace Pms360.Application.Features.HumanResourceEmployeeBasics.Validators;
 public class GetHumanResourceEmployeeBasicByEmpCodeQueryValidator : AbstractValidator<GetHumanResourceEmployeeBasicByEmpCodeQuery>
 {
     public GetHumanResourceEmployeeBasicByEmpCodeQueryValidator()

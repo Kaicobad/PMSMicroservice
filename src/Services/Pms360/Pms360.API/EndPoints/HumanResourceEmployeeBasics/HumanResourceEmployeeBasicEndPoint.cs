@@ -1,7 +1,4 @@
-﻿
-using Pms360.Application.Features.HumanResourceEmployeeBasics.Queries;
-
-namespace Pms360.API.EndPoints.HumanResourceEmployeeBasics;
+﻿namespace Pms360.API.EndPoints.HumanResourceEmployeeBasics;
 
 public class HumanResourceEmployeeBasicEndPoint : EndPointGroupBase
 {

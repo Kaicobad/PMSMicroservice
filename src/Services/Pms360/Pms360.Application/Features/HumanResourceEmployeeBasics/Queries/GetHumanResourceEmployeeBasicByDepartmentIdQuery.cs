@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Pms360.Application.Response;
-
-namespace Pms360.Application.Features.HumanResourceEmployeeBasics.Queries;
+﻿namespace Pms360.Application.Features.HumanResourceEmployeeBasics.Queries;
 public class GetHumanResourceEmployeeBasicByDepartmentIdQuery :IRequest<IResponse<List<HumanResourceEmployeeBasic>>>
 {
     public int DepartmentId { get; set; }

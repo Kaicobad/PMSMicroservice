@@ -1,6 +1,4 @@
-﻿using Pms360.Application.Features.PMSDurationTypes.Queries;
-
-namespace Pms360.API.EndPoints.PMSDurationTypes;
+﻿namespace Pms360.API.EndPoints.PMSDurationTypes;
 
 public class PMSDurationTypeEndPoint : EndPointGroupBase
 {

@@ -1,14 +1,11 @@
-﻿
-using Pms360.Application.Features.CommonCompanies.Queries;
-
-namespace Pms360.API.EndPoints.CommonCompanies;
+﻿namespace Pms360.API.EndPoints.CommonCompanies;
 
 public class CommonCompaniesEndPoint : EndPointGroupBase
 {
     private const string RoutePrefix = "api/v1/pms360/companies";
     public override void Map(WebApplication app)
     {
-        var group = app.MapGroup(RoutePrefix).WithTags("Company").WithDescription("Works with retriving Company information");
+        var group = app.MapGroup(RoutePrefix).WithTags("CoreERPCompany").WithDescription("Works with retriving Company information");
            //.RequireAuthorization();
         group.MapGet("getAll", GetCommonCompanies);
         //group.MapDelete("getById", DeletePmsType);

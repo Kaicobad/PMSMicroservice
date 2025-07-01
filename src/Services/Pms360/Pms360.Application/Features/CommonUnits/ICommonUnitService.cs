@@ -10,4 +10,5 @@ public interface ICommonUnitService
     Task<List<CommonUnit>> GetAllAsync(CancellationToken cancellationToken);
     Task<CommonUnit> GetByIdAsync(int UnitId, CancellationToken cancellationToken);
     Task<List<CommonUnit>> GetByCompanyId(int CompanyId, CancellationToken cancellationToken);
+    Task<bool> IsExistsAsync(int UnitId, CancellationToken cancellationToken);
 }

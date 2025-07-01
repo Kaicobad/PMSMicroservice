@@ -15,4 +15,9 @@ public class CommonCompanyService(CoreERPDbContext dbContext) : ICommonCompanySe
         Guard.Against.NotFound("Company", company);
         return company;
     }
+
+    public async Task<bool> IsExistsAsync(int CompanyId, CancellationToken cancellationToken)
+    {
+        return await _dbContext.CommonCompanies.AnyAsync(comp => comp.CompanyId == CompanyId);
+    }
 }
