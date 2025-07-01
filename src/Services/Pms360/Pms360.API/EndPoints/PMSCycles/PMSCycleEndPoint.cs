@@ -1,8 +1,4 @@
-﻿
-using Pms360.Application.Features.PMSCycles.Commands;
-using Pms360.Application.Features.PMSCycles.Queries;
-
-namespace Pms360.API.EndPoints.PMSCycles;
+﻿namespace Pms360.API.EndPoints.PMSCycles;
 
 public class PMSCycleEndPoint : EndPointGroupBase
 {

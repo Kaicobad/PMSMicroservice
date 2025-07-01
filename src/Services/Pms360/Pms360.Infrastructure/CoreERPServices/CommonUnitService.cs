@@ -24,4 +24,9 @@ public class CommonUnitService(CoreERPDbContext dbContext) : ICommonUnitService
         return response;
 
     }
+
+    public async Task<bool> IsExistsAsync(int UnitId, CancellationToken cancellationToken)
+    {
+        return await _dbContext.CommonUnits.AnyAsync(units => units.UnitId == UnitId, cancellationToken);
+    }
 }

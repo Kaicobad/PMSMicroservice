@@ -1,6 +1,4 @@
-﻿
-
-namespace Pms360.Application.Features.PMSCycles.Queries;
+﻿namespace Pms360.Application.Features.PMSCycles.Queries;
 public class GetPmsCyclePaginatedQuery : IRequest<IResponse<PaginatedList<PMSCycle>>>, IValidatable
 {
     public Guid PMSTypeId { get; set; }

@@ -1,7 +1,4 @@
-﻿using Pms360.Application.Features.PMSDurationTypes;
-using Pms360.Application.Features.PMSTypes;
-
-namespace Pms360.Application.Features.PMSCycles.Validators;
+﻿namespace Pms360.Application.Features.PMSCycles.Validators;
 public class CreatePmsCycleRequestValidator : AbstractValidator<CreatePMSCycleRequest>
 {
     public CreatePmsCycleRequestValidator(IPMSTypesService typeService,IPMSDurationTypeService durationService)

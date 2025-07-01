@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-
-namespace Pms360.API.EndPoints.PMSTypes;
+﻿namespace Pms360.API.EndPoints.PMSTypes;
 
 public class PMSTypeEndPoint : EndPointGroupBase
 {

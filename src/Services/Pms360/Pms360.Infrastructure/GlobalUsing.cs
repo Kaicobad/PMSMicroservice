@@ -20,6 +20,9 @@ global using Pms360.Infrastructure.CoreERPData;
 global using Pms360.Application.Features.CommonDepartments;
 global using Pms360.Application.Features.CommonCompanies;
 global using Pms360.Application.Features.CommonUnits;
+global using Pms360.Application.Features.CommonSections;
+global using Pms360.Application.Features.CommonWings;
+global using Pms360.Application.Features.CommonTeams;
 
 
 

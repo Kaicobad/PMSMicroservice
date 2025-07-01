@@ -1,8 +1,4 @@
 // Ensure this namespace matches where AddInfrastructureServices is defined
-
-using Microsoft.Extensions.Options;
-using Pms360.API.Extensions;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationServices();

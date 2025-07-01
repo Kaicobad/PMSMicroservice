@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using Pms360.Application.Features.CommonDepartments;
 using Pms360.Application.Features.CommonUnits;
+using Pms360.Application.Features.CommonWings;
 using Pms360.Infrastructure.CoreERPData;
 using Pms360.Infrastructure.CoreERPServices;
 
@@ -38,6 +39,9 @@ public static class DependencyInjection
         services.AddScoped<ICommonDepartmentService,CommonDepartmentService>();
         services.AddScoped<ICommonUnitService, CommonUnitService>();
         services.AddScoped<ICommonCompanyService, CommonCompanyService>();
+        services.AddScoped<ICommonSectionService, CommonSectionService>();
+        services.AddScoped<ICommonWingService, CommonWingService>();
+        services.AddScoped<ICommonTeamService, CommonTeamService>();
         services.AddScoped<IMapper,Mapper>();
 
         return services;

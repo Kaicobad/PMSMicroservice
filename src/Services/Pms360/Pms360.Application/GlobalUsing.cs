@@ -15,5 +15,10 @@ global using Pms360.Application.Features.PMSCycles.Commands;
 global using Pms360.Application.Features.PMSDurationTypes;
 global using Pms360.Application.Features.PMSTypes;
 global using Pms360.Domain.CoreERPEntities;
+global using Pms360.Application.Features.CommonDepartments.Queries;
+global using Pms360.Application.Features.CommonDepartments;
+global using Pms360.Application.Features.CommonSections.Queries;
+global using Pms360.Application.Features.CommonUnits;
+global using Pms360.Application.Features.HumanResourceEmployeeBasics.Queries;
 
 
