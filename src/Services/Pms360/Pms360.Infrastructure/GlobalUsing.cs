@@ -14,6 +14,12 @@ global using Mapster;
 global using MapsterMapper;
 global using Pms360.Application.Common.Mappings;
 global using Pms360.Application.Features.PMSCycles;
+global using Pms360.Domain.CoreERPEntities;
+global using Pms360.Application.Features.HumanResourceEmployeeBasics;
+global using Pms360.Infrastructure.CoreERPData;
+global using Pms360.Application.Features.CommonDepartments;
+global using Pms360.Application.Features.CommonCompanies;
+global using Pms360.Application.Features.CommonUnits;
 
 
 

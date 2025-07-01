@@ -14,5 +14,6 @@ global using Pms360.Application.Models.Pagination;
 global using Pms360.Application.Features.PMSCycles.Commands;
 global using Pms360.Application.Features.PMSDurationTypes;
 global using Pms360.Application.Features.PMSTypes;
+global using Pms360.Domain.CoreERPEntities;
 
 
