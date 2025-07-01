@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Pms360.Domain.Entities;
-
-namespace Pms360.Infrastructure.Services;
+﻿namespace Pms360.Infrastructure.Services;
 public class PMSCycleService(IApplicationDbContext dbContext, IMapper mapper) : IPMSCycleService
 {
     private readonly IApplicationDbContext _dbContext = dbContext;

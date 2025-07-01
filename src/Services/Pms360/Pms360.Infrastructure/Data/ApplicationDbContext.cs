@@ -1,7 +1,7 @@
 ﻿namespace Pms360.Infrastructure.Data;
 public class ApplicationDbContext : DbContext , IApplicationDbContext
 {
-    public ApplicationDbContext(DbContextOptions options) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
     public DbSet<PMSType> PMSTypes => Set<PMSType>();
