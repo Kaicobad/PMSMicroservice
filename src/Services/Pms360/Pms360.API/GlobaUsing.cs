@@ -23,3 +23,6 @@ global using Pms360.Application.Features.PMSCycles.Commands;
 global using Pms360.Application.Features.PMSCycles.Queries;
 global using Pms360.Application.Features.PMSDurationTypes.Queries;
 global using Pms360.API.Extensions;
+global using Pms360.Infrastructure.CurrentUser;
+global using Pms360.Application.Features.AssessorTypes.Commands;
+global using Pms360.Application.Features.AssessorTypes.Queries;

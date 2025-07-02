@@ -5,8 +5,8 @@ public class HumanResourceEmployeeBasicEndPoint : EndPointGroupBase
     private const string RoutePrefix = "api/v1/pms360/employeebasic";
     public override void Map(WebApplication app)
     {
-        var group = app.MapGroup(RoutePrefix).WithTags("CoreERPEmployeeBasic").WithDescription("Informations from CoreErp / HRM");
-            //.RequireAuthorization();
+        var group = app.MapGroup(RoutePrefix).WithTags("CoreERPEmployeeBasic").WithDescription("Information retrieve from CoreErp / HRM")
+            .RequireAuthorization();
 
         group.MapGet("getbyempcode", GetHumanResourceEmployeeBasicByEmpCode);
         group.MapGet("getbydepartment", GetHumanResourceEmployeeBasicByDepartment);

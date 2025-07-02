@@ -5,7 +5,10 @@ public class AssessorType :BaseEntity
     [Key]
     public Guid TypeId { get; set; }
     [Required]
+    [StringLength(100)]
     public string TypeName { get; set; }
+    [StringLength(200)]
+    public string Description { get; set; }
     public virtual ICollection<PMSAssessor> PMSAssessors { get; set; } = [];
 }
 

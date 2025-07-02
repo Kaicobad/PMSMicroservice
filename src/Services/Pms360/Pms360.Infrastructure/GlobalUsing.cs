@@ -23,6 +23,11 @@ global using Pms360.Application.Features.CommonUnits;
 global using Pms360.Application.Features.CommonSections;
 global using Pms360.Application.Features.CommonWings;
 global using Pms360.Application.Features.CommonTeams;
+global using Microsoft.EntityFrameworkCore.Diagnostics;
+global using Pms360.Infrastructure.CoreERPServices;
+global using Pms360.Infrastructure.CurrentUser;
+global using Pms360.Application.Features.AssessorTypes;
+global using Pms360.Application.Features.CycleDetails;
 
 
 

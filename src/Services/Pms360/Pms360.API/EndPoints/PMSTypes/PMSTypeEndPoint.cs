@@ -6,7 +6,7 @@ public class PMSTypeEndPoint : EndPointGroupBase
 
     public override void Map(WebApplication app)
     {
-        var group = app.MapGroup(RoutePrefix).WithTags("PMSType").WithDescription("Works with PMS Types like individual. departmental eto")
+        var group = app.MapGroup(RoutePrefix).WithTags("PMSType").WithDescription("Works with PMS Types like individual. departmental etc")
             .RequireAuthorization();
 
         group.MapPost("create", CreatePMSType);
@@ -14,8 +14,8 @@ public class PMSTypeEndPoint : EndPointGroupBase
         group.MapGet("getAll", GetPmsTypes);
         group.MapGet("getAllNoFilter", GetPmsTypesNoFilter);
         group.MapGet("getAllPaginated", GetPmsTypesWithPagination);
-        group.MapGet("getById/{typeId}", GetPmsTypeById);
-        group.MapDelete("delete/{typeId}", DeletePmsType);
+        group.MapGet("getById", GetPmsTypeById);
+        group.MapDelete("delete", DeletePmsType);
     }
     public async Task<IResult> CreatePMSType(ISender sender, [AsParameters] CreatePmsTypeCommand command)
     {

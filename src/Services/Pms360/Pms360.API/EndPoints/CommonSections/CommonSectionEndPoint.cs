@@ -6,7 +6,7 @@ public class CommonSectionEndPoint : EndPointGroupBase
 
     public override void Map(WebApplication app)
     {
-        var group = app.MapGroup(RoutePrefix).WithTags("CoreERPCommonSecction").WithDescription("Works with retrive Section Information")
+        var group = app.MapGroup(RoutePrefix).WithTags("CoreERPCommonSection").WithDescription("Works with retrieve Section Information")
             .RequireAuthorization();
 
        

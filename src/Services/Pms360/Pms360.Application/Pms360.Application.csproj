@@ -19,9 +19,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\AssessorTypes\" />
-    <Folder Include="Features\CommonTeams\Validators\" />
-    <Folder Include="Features\CommonWings\Validators\" />
+    <Folder Include="Features\CommonCompanies\Validators\" />
+    <Folder Include="Features\CommonDepartments\Validators\" />
+    <Folder Include="Features\CommonDepartments\Queries\" />
+    <Folder Include="Features\CommonUnits\Validators\" />
+    <Folder Include="Features\CommonUnits\Queries\" />
+    <Folder Include="Features\CycleDetails\Commands\" />
+    <Folder Include="Features\CycleDetails\Validators\" />
+    <Folder Include="Features\CycleDetails\Queries\" />
     <Folder Include="Features\PMSDurationTypes\Validators\" />
   </ItemGroup>
 

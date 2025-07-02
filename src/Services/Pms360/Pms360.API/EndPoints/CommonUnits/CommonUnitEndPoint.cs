@@ -5,7 +5,7 @@ public class CommonUnitEndPoint : EndPointGroupBase
     private const string RoutePrefix = "api/v1/pms360/units";
     public override void Map(WebApplication app)
     {
-        var group = app.MapGroup(RoutePrefix).WithTags("CoreERPCommonUnit").WithDescription("Works with retriving Unit Information")
+        var group = app.MapGroup(RoutePrefix).WithTags("CoreERPCommonUnit").WithDescription("Works with retrieve Unit Information")
            .RequireAuthorization();
         group.MapGet("getall", GetCommonUnits);
         group.MapGet("getbycompanyId", GetCommonUnitsByCompanyId);
