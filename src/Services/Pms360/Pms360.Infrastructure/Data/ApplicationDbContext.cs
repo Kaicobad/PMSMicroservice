@@ -1,8 +1,11 @@
 ﻿namespace Pms360.Infrastructure.Data;
 public class ApplicationDbContext : DbContext , IApplicationDbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    private readonly ICurrentUserService _userService;
+
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ICurrentUserService userService) : base(options)
     {
+        _userService = userService;
     }
     public DbSet<PMSType> PMSTypes => Set<PMSType>();
     public DbSet<PMSDurationType> PMSDurationTypes => Set<PMSDurationType>();
@@ -32,15 +35,18 @@ public class ApplicationDbContext : DbContext , IApplicationDbContext
                     break;
                 case EntityState.Added:
                     entry.Entity.CreatedOn = DateTime.UtcNow;
-                    //entry.Entity.ModifiedById = _loggedInUser.Id;
+                    entry.Entity.CreatedById = _userService.UserId;
+                    entry.Entity.UpdatedBy = _userService.UserId;
                     entry.Entity.UpdatedOn = DateTime.UtcNow;
                     break;
                 case EntityState.Modified:
-                    //entry.Entity.ModifiedById = _loggedInUser.Id;
+                    entry.Entity.UpdatedBy = _userService.UserId;
                     entry.Entity.UpdatedOn = DateTime.UtcNow;
                     break;
                 case EntityState.Deleted:
+                    entry.State = EntityState.Modified;
                     entry.Entity.DeletedOn = DateTime.UtcNow;
+                    entry.Entity.DeletedById = _userService.UserId;
                     break;
             }
         }

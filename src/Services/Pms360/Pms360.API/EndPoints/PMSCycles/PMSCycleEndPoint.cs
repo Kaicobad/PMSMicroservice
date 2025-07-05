@@ -5,7 +5,8 @@ public class PMSCycleEndPoint : EndPointGroupBase
     private const string RoutePrefix = "api/v1/pms360/pmscycle";
     public override void Map(WebApplication app)
     {
-        var group = app.MapGroup(RoutePrefix).WithTags("PMSCycle").WithDescription("Used TO Create PMS-360 Cycle") ;
+        var group = app.MapGroup(RoutePrefix).WithTags("PMSCycle").WithDescription("Used TO Create PMS-360 Cycle")
+            .RequireAuthorization();
         group.MapPost("create", CreatePMSCycle);
         group.MapGet("get", GetPmsCycleByTypeAndDurationWithPagination);
     }

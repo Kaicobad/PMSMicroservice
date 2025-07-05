@@ -7,7 +7,7 @@ public class DeletePmsCommandValidator : AbstractValidator<DeletePmsTypeCommand>
            .NotNull()
            .NotEmpty()
            .WithMessage("TypeId Must Be Supplied")
-           .MustAsync(async (TypeId, ct) => !await service.IsExistsAsync(TypeId, ct))
+           .MustAsync(async (TypeId, ct) => await service.IsExistsAsync(TypeId, ct))
            .WithMessage("Type Not Found To Delete !");
     }
 }

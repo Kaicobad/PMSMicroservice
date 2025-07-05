@@ -20,5 +20,6 @@ global using Pms360.Application.Features.CommonDepartments;
 global using Pms360.Application.Features.CommonSections.Queries;
 global using Pms360.Application.Features.CommonUnits;
 global using Pms360.Application.Features.HumanResourceEmployeeBasics.Queries;
+global using Pms360.Application.Features.AssessorTypes.Commands;
 
 

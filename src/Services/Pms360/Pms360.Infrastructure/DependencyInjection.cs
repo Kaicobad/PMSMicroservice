@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
-using Pms360.Application.Features.CommonDepartments;
-using Pms360.Application.Features.CommonUnits;
-using Pms360.Application.Features.CommonWings;
-using Pms360.Infrastructure.CoreERPData;
-using Pms360.Infrastructure.CoreERPServices;
-
-namespace Pms360.Infrastructure;
+﻿namespace Pms360.Infrastructure;
 
 public static class DependencyInjection
 {
@@ -33,18 +26,20 @@ public static class DependencyInjection
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<IPMSTypesService, PMSTypeService>();
-        services.AddScoped<IPMSDurationTypeService,PMSDurationTypeService>();
-        services.AddScoped<IPMSCycleService,PMSCycleService>();
+        services.AddScoped<IPMSDurationTypeService, PMSDurationTypeService>();
+        services.AddScoped<IPMSCycleService, PMSCycleService>();
         services.AddScoped<IHumanResourceEmployeeBasicService, HumanResourceEmployeeBasicService>();
-        services.AddScoped<ICommonDepartmentService,CommonDepartmentService>();
+        services.AddScoped<ICommonDepartmentService, CommonDepartmentService>();
         services.AddScoped<ICommonUnitService, CommonUnitService>();
         services.AddScoped<ICommonCompanyService, CommonCompanyService>();
         services.AddScoped<ICommonSectionService, CommonSectionService>();
         services.AddScoped<ICommonWingService, CommonWingService>();
         services.AddScoped<ICommonTeamService, CommonTeamService>();
-        services.AddScoped<IMapper,Mapper>();
+        services.AddScoped<IAssessorTypeService, AssessorTypeService>();
+        services.AddScoped<IMapper, Mapper>();
+        services.AddScoped<CurrentUserService>();
+        services.AddScoped<ICurrentUserService>(provider => provider.GetRequiredService<CurrentUserService>());
 
         return services;
     }
-
 }

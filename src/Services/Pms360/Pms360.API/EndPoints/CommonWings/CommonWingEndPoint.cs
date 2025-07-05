@@ -9,7 +9,7 @@ public class CommonWingEndPoint : EndPointGroupBase
 
     public override void Map(WebApplication app)
     {
-        var group = app.MapGroup(RoutePrefix).WithTags("CoreERPCommonWing").WithDescription("Works with retriving wings information !")
+        var group = app.MapGroup(RoutePrefix).WithTags("CoreERPCommonWing").WithDescription("Works with retrieve wings information !")
             .RequireAuthorization();
 
         group.MapGet("getAllbyUnitDepartmentAndSection", GetCommonWingsByUnitDepartmentAndSection);

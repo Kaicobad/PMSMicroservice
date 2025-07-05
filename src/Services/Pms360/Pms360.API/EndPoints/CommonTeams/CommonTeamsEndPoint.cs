@@ -8,7 +8,7 @@ public class CommonTeamsEndPoint : EndPointGroupBase
 
     public override void Map(WebApplication app)
     {
-        var group = app.MapGroup(RoutePrefix).WithTags("CoreERPCommonTeam").WithDescription("Works with retrive Team Information")
+        var group = app.MapGroup(RoutePrefix).WithTags("CoreERPCommonTeam").WithDescription("Works with retrieve Team Information")
             .RequireAuthorization();
 
 
