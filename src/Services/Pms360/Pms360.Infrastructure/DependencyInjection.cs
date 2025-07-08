@@ -36,6 +36,9 @@ public static class DependencyInjection
         services.AddScoped<ICommonWingService, CommonWingService>();
         services.AddScoped<ICommonTeamService, CommonTeamService>();
         services.AddScoped<IAssessorTypeService, AssessorTypeService>();
+        services.AddScoped<IAssessorMasterService, AssessorMasterService>();
+        services.AddScoped<IAssessorTypeMapService, AssessorTypeMapService>();
+        services.AddScoped<IAssessorUserMapService, AssessorUserMapService>();
         services.AddScoped<IMapper, Mapper>();
         services.AddScoped<CurrentUserService>();
         services.AddScoped<ICurrentUserService>(provider => provider.GetRequiredService<CurrentUserService>());

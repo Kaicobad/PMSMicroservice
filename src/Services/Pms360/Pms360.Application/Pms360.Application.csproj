@@ -19,6 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\AssessorMasters\Validators\" />
+    <Folder Include="Features\AssessorTypeMaps\Validators\" />
+    <Folder Include="Features\AssessorTypeMaps\Queries\" />
+    <Folder Include="Features\AssessorUserMaps\Validators\" />
+    <Folder Include="Features\AssessorUserMaps\Queries\" />
     <Folder Include="Features\CommonCompanies\Validators\" />
     <Folder Include="Features\CommonDepartments\Validators\" />
     <Folder Include="Features\CommonDepartments\Queries\" />

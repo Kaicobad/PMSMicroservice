@@ -26,3 +26,5 @@ global using Pms360.API.Extensions;
 global using Pms360.Infrastructure.CurrentUser;
 global using Pms360.Application.Features.AssessorTypes.Commands;
 global using Pms360.Application.Features.AssessorTypes.Queries;
+global using Pms360.Application.Features.AssessorMasters.Commands;
+global using Pms360.Application.Features.AssessorTypeMaps.Commands;

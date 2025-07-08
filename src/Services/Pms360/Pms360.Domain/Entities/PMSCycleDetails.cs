@@ -12,6 +12,6 @@ public class PMSCycleDetails :BaseEntity
 
     [ForeignKey("CycleId")]
     public virtual PMSCycle Cycle { get; set; }
-    public virtual ICollection<PMSAssessorDetails> PMSAssessorDetails { get; set; } = [];
+    public virtual ICollection<PMSAssessorDetails> PMSAssessorDetails { get; set; }
     public virtual ICollection<PMSCycleDetailsWithCriteriaMapping> CriteriaMappings { get; set; }
 }

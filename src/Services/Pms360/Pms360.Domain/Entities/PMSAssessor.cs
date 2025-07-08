@@ -13,5 +13,4 @@ public class PMSAssessor : BaseEntity
     [ForeignKey("AssessorTypeId")]
     public virtual AssessorType AssessorType { get; set; }
     public virtual ICollection<EvaluationResponse> EvaluationResponses { get; set; }
-    public virtual ICollection<PMSCycleDetails> PMSCycleDetails { get; set; } = new List<PMSCycleDetails>();
 }
