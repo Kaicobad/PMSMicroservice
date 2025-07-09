@@ -2,7 +2,7 @@
 
 public class AssessorTypeEndPoint  : EndPointGroupBase
 {
-    private const string RoutePrefix = "api/v1/pms360/assessortype";
+    private const string RoutePrefix = "api/v1/pms360/assessorType";
 
     public override void Map(WebApplication app)
     {

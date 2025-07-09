@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pms360.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Pms360.Infrastructure.Data;
 namespace Pms360.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250707110724_AddedBaseEntities")]
+    partial class AddedBaseEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace Pms360.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Pms360.Domain.Entities.AssessorMaster", b =>
+            modelBuilder.Entity("Pms360.Domain.Entities.AccessorMaster", b =>
                 {
                     b.Property<Guid>("AssessorMasterId")
                         .ValueGeneratedOnAdd()
@@ -72,7 +75,7 @@ namespace Pms360.Infrastructure.Migrations
 
                     b.HasKey("AssessorMasterId");
 
-                    b.ToTable("AssessorMasters");
+                    b.ToTable("AccessorMasters");
                 });
 
             modelBuilder.Entity("Pms360.Domain.Entities.AssessorType", b =>
@@ -661,7 +664,7 @@ namespace Pms360.Infrastructure.Migrations
 
             modelBuilder.Entity("Pms360.Domain.Entities.AssessorTypeMap", b =>
                 {
-                    b.HasOne("Pms360.Domain.Entities.AssessorMaster", "AccessorMaster")
+                    b.HasOne("Pms360.Domain.Entities.AccessorMaster", "AccessorMaster")
                         .WithMany("AssessorTypeMaps")
                         .HasForeignKey("AssessorMasterId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -680,7 +683,7 @@ namespace Pms360.Infrastructure.Migrations
 
             modelBuilder.Entity("Pms360.Domain.Entities.AssessorUserMap", b =>
                 {
-                    b.HasOne("Pms360.Domain.Entities.AssessorMaster", "AccessorMaster")
+                    b.HasOne("Pms360.Domain.Entities.AccessorMaster", "AccessorMaster")
                         .WithMany("AssessorUserMaps")
                         .HasForeignKey("AssessorMasterId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -823,7 +826,7 @@ namespace Pms360.Infrastructure.Migrations
                     b.Navigation("CycleDetails");
                 });
 
-            modelBuilder.Entity("Pms360.Domain.Entities.AssessorMaster", b =>
+            modelBuilder.Entity("Pms360.Domain.Entities.AccessorMaster", b =>
                 {
                     b.Navigation("AssessorTypeMaps");
 

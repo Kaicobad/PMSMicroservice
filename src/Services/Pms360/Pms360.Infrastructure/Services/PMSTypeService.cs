@@ -46,14 +46,8 @@ public class PMSTypeService(IApplicationDbContext dbContext, IMapper mapper) : I
     public async Task<List<PMSType>> GetAllNoFilter(CancellationToken cancellationToken)
     {
         var types = await _dbContext.PMSTypes.ToListAsync(cancellationToken);
-        if (types.Any())
-        {
-            return types;
-        }
-        else
-        {
-            return new List<PMSType>();
-        }
+        Guard.Against.NotFound("PMSTypes", types);
+        return types;
     }
 
     public async Task<PaginatedList<PMSType>> GetAllWithPagination(int pageNumber,int pageSize,CancellationToken cancellationToken)

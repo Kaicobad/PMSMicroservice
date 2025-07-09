@@ -11,7 +11,7 @@ public class EvaluationCriteria : BaseEntity
     public int DepartmentId { get; set; }
     public int DesignationId { get; set; }
 
-    public virtual ICollection<CriteriaScale> CriteriaScales { get; set; } = [];
+    public virtual ICollection<CriteriaScale> CriteriaScales { get; set; } = new List<CriteriaScale>();
 
-    public virtual ICollection<EvaluationResponse> Responses { get; set; } = [];
+    public virtual ICollection<EvaluationResponse> Responses { get; set; } = new List<EvaluationResponse>();
 }

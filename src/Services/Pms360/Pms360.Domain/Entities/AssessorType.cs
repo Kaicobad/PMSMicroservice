@@ -9,6 +9,7 @@ public class AssessorType :BaseEntity
     public string TypeName { get; set; }
     [StringLength(200)]
     public string Description { get; set; }
-    public virtual ICollection<PMSAssessor> PMSAssessors { get; set; } = [];
+    public virtual ICollection<AssessorTypeMap> AssessorTypeMaps { get; set; } = new List<AssessorTypeMap>();
+
 }
 

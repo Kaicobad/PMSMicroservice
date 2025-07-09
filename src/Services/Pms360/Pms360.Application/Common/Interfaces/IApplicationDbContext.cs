@@ -18,5 +18,9 @@ public interface IApplicationDbContext
     DbSet<PMSCycle> PMSCycles { get; }
     DbSet<PMSCycleDetails> PMSCycleDetails { get; }
     DbSet<PMSCycleDetailsWithCriteriaMapping> PMSCycleDetailsWithCriteriaMappings { get; }
+    DbSet<AssessorMaster> AssessorMasters { get; }
+    DbSet<AssessorTypeMap> AssessorTypeMaps { get; }
+    DbSet<AssessorUserMap> AssessorUserMaps { get; }
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
