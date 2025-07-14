@@ -14,6 +14,13 @@ public class AssessorUserMapService(IApplicationDbContext dbContext) : IAssessor
         return assessorUserMap.AssessorTypeMapId;
     }
 
+    public async Task<List<AssessorUserMap>> GetAllAsync(CancellationToken cancellationToken)
+    {
+        var assessorUserMap = await _dbContext.AssessorUserMaps.Where(x => x.IsActive == true).ToListAsync(cancellationToken);
+        Guard.Against.NotFound("AssessorUserMap", assessorUserMap);
+        return assessorUserMap;
+    }
+
     public async Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _dbContext.AssessorUserMaps.AnyAsync(x => x.AssessorUserMapId == id);

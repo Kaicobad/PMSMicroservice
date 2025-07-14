@@ -1,4 +1,6 @@
-﻿namespace Pms360.API.EndPoints.AssessorTypeMaps;
+﻿using Pms360.Application.Features.AssessorTypeMaps.Queries;
+
+namespace Pms360.API.EndPoints.AssessorTypeMaps;
 
 public class AssessorTypeMapEndPoint : EndPointGroupBase
 {
@@ -10,6 +12,7 @@ public class AssessorTypeMapEndPoint : EndPointGroupBase
             .RequireAuthorization();
 
         group.MapPost("create", CreateAssessorTypeMap);
+        group.MapGet("getAll", GetAssessorTypeMaps);
     }
     public async Task<IResult> CreateAssessorTypeMap(ISender sender, [AsParameters] CreateAssessorTypeMapCommand command)
     {
@@ -19,6 +22,14 @@ public class AssessorTypeMapEndPoint : EndPointGroupBase
             return Results.Ok(result);
         }
         return Results.BadRequest(result);
-
+    }
+    public async Task<IResult> GetAssessorTypeMaps(ISender sender)
+    {
+        var result = await sender.Send(new GetAssessorTypeMapQuery());
+        if (result.IsSuccessful)
+        {
+            return Results.Ok(result);
+        }
+        return Results.BadRequest(result);
     }
 }

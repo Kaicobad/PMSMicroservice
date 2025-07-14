@@ -3,4 +3,5 @@ public interface IAssessorUserMapService
 {
     Task<Guid> CreateAsync(AssessorUserMap assessorUserMap, CancellationToken cancellationToken);
     Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken);
+    Task<List<AssessorUserMap>> GetAllAsync(CancellationToken cancellationToken);
 }

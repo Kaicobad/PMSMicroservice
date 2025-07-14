@@ -12,7 +12,6 @@ public class AssessorTypeMap : BaseEntity
     public Guid AssessorTypeId { get; set; }
     [ForeignKey(nameof(AssessorTypeId))]
     public AssessorType AssessorType { get; set; }
-
     public virtual ICollection<AssessorUserMap> AssessorUserMaps { get; set; } = new List<AssessorUserMap>();
 
 }

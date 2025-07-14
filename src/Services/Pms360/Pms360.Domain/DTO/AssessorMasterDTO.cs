@@ -1,10 +1,9 @@
-﻿namespace Pms360.Domain.Entities;
-public class AssessorMaster : BaseEntity
+﻿using Pms360.Domain.Entities;
+
+namespace Pms360.Domain.DTO;
+public class AssessorMasterDTO
 {
-    [Key]
-    [ForeignKey(nameof(AssessorMasterId))]
     public Guid AssessorMasterId { get; set; }
-    [Required]
     public Guid ClientId { get; set; }
     public bool IsForUser { get; set; }
     public bool IsForUnit { get; set; }
@@ -12,7 +11,6 @@ public class AssessorMaster : BaseEntity
     public bool IsForSection { get; set; }
     public bool IsForWing { get; set; }
     public bool IsForTeam { get; set; }
-
-    public virtual ICollection<AssessorTypeMap> AssessorTypeMaps { get; set; } = [];
-    public virtual ICollection<AssessorUserMap> AssessorUserMaps { get; set; } = [];
+    public virtual ICollection<AssessorTypeMapDTO> AssessorTypeMaps { get; set; } = [];
+    public virtual ICollection<AssessorUserMapDTO> AssessorUserMaps { get; set; } = [];
 }
