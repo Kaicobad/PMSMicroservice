@@ -8,6 +8,8 @@ public interface IAssessorMasterService
     Task<AssessorMaster> GetByClientIdAsync(Guid clientId,Guid assessorMasterId, CancellationToken cancellationToken);
     Task<List<AssessorMaster>> GetAll(CancellationToken cancellationToken);
     Task<PaginatedList<AssessorMaster>> GetAllWithPagination(int pageNumber, int pageSize, CancellationToken cancellationToken);
+    Task<PaginatedList<AssessorMaster>> GetByAssessorMaserIdWithPagination(Guid masterId,int pageNumber, int pageSize, CancellationToken cancellationToken);
+    Task<List<AssessorMasterDTO>> GetByAssessorMaserId(Guid masterId, CancellationToken cancellationToken);
     Task<List<AssessorMaster>> GetAllNoFilter(CancellationToken cancellationToken);
     Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken);
 }
