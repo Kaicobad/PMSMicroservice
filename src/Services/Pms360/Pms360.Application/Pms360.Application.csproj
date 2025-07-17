@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\AspNetUsers\Commands\" />
+    <Folder Include="Features\AspNetUsers\Validators\" />
+    <Folder Include="Features\AspNetUsers\Queries\" />
     <Folder Include="Features\AssessorMasters\Validators\" />
     <Folder Include="Features\AssessorTypeMaps\Validators\" />
     <Folder Include="Features\AssessorUserMaps\Validators\" />

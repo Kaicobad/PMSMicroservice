@@ -32,5 +32,10 @@ global using Pms360.Application.Features.AssessorMasters;
 global using Pms360.Application.Features.AssessorTypeMaps;
 global using Pms360.Application.Features.AssessorUserMaps;
 global using Pms360.Domain.DTO;
+global using Pms360.Infrastructure.AuthApiData;
+global using Pms360.Application.Features.AspNetUsers;
+global using Pms360.Infrastructure.AuthApiServices;
+
+
 
 

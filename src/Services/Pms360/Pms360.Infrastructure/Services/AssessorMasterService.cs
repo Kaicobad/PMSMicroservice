@@ -1,7 +1,8 @@
 ﻿namespace Pms360.Infrastructure.Services;
-public class AssessorMasterService(IApplicationDbContext dbContext, IMapper mapper) : IAssessorMasterService
+public class AssessorMasterService(IApplicationDbContext dbContext,AuthDbContext authDbContext, IMapper mapper) : IAssessorMasterService
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
+    private readonly AuthDbContext _authDbContext = authDbContext;
     private readonly IMapper _mapper = mapper;
 
     public async Task<Guid> CreateAsync(AssessorMaster assessorMaster, CancellationToken cancellationToken)
@@ -99,52 +100,135 @@ public class AssessorMasterService(IApplicationDbContext dbContext, IMapper mapp
         //return assessorMaster;
         #endregion
 
-        var result = await _dbContext.AssessorMasters
-      .Where(x => x.AssessorMasterId == masterId)
-      .Select(x => new AssessorMasterDTO
-      {
-          AssessorMasterId = x.AssessorMasterId,
-          ClientId = x.ClientId,
-          IsForUser = x.IsForUser,
-          IsForUnit = x.IsForUnit,
-          IsForDepartment = x.IsForDepartment,
-          IsForSection = x.IsForSection,
-          IsForWing = x.IsForWing,
-          IsForTeam = x.IsForTeam,
+        #region Later Previous
+        //var userData = await  _usersService.GetAll(cancellationToken);
 
-          AssessorTypeMaps = x.AssessorTypeMaps.Select(at => new AssessorTypeMapDTO
-          {
-              AssessorTypeMapId = at.AssessorTypeMapId,
-              AssessorMasterId = at.AssessorMasterId,
-              AssessorTypeId = at.AssessorTypeId,
+        // var result = await _dbContext.AssessorMasters
+        //.Where(x => x.AssessorMasterId == masterId)
+        //.Select(x => new AssessorMasterDTO
+        //{
+        //    AssessorMasterId = x.AssessorMasterId,
+        //    ClientId = x.ClientId,
+        //    IsForUser = x.IsForUser,
+        //    IsForUnit = x.IsForUnit,
+        //    IsForDepartment = x.IsForDepartment,
+        //    IsForSection = x.IsForSection,
+        //    IsForWing = x.IsForWing,
+        //    IsForTeam = x.IsForTeam,
 
-              AssessorType = new AssessorTypeDTO
-              {
-                  TypeId = at.AssessorType.TypeId,
-                  TypeName = at.AssessorType.TypeName
-              },
+        //    AssessorTypeMaps = x.AssessorTypeMaps.Select(at => new AssessorTypeMapDTO
+        //    {
+        //        AssessorTypeMapId = at.AssessorTypeMapId,
+        //        AssessorMasterId = at.AssessorMasterId,
+        //        AssessorTypeId = at.AssessorTypeId,
 
-              AssessorUserMaps = at.AssessorUserMaps.Select(um => new AssessorUserMapDTO
-              {
-                  AssessorUserMapId = um.AssessorUserMapId,
-                  AssessorMasterId = um.AssessorMasterId,
-                  UserId = um.UserId
-              }).ToList()
+        //        AssessorType = new AssessorTypeDTO
+        //        {
+        //            TypeId = at.AssessorType.TypeId,
+        //            TypeName = at.AssessorType.TypeName,
+        //            Description = at.AssessorType.Description
+        //        },
 
-          }).ToList(),
+        //        AssessorUserMaps = at.AssessorUserMaps.Select(um => new AssessorUserMapDTO
+        //        {
+        //            AssessorUserMapId = um.AssessorUserMapId,
+        //            AssessorMasterId = um.AssessorMasterId,
+        //            UserId = um.UserId
+        //        }).ToList()
 
-          AssessorUserMaps = x.AssessorUserMaps.Select(um => new AssessorUserMapDTO
-          {
-              AssessorUserMapId = um.AssessorUserMapId,
-              AssessorMasterId = um.AssessorMasterId,
-              UserId = um.UserId
-          }).ToList()
-      })
-      .ToListAsync(cancellationToken);
+        //    }).ToList(),
 
+        //    //AssessorUserMaps = x.AssessorUserMaps.Select(um => new AssessorUserMapDTO
+        //    //{
+        //    //    AssessorUserMapId = um.AssessorUserMapId,
+        //    //    AssessorMasterId = um.AssessorMasterId,
+        //    //    UserId = um.UserId
+        //    //}).ToList()
+        //})
+        //.ToListAsync(cancellationToken);
+        #endregion
 
+        // STEP 1: Query Assessor data from _dbContext
+        var assessorData = await (
+             from am in _dbContext.AssessorMasters
+             where am.AssessorMasterId == masterId
+             select new AssessorMasterDTO
+             {
+                 AssessorMasterId = am.AssessorMasterId,
+                 ClientId = am.ClientId,
+                 IsForUser = am.IsForUser,
+                 IsForUnit = am.IsForUnit,
+                 IsForDepartment = am.IsForDepartment,
+                 IsForSection = am.IsForSection,
+                 IsForWing = am.IsForWing,
+                 IsForTeam = am.IsForTeam,
 
-        return result;
+                 AssessorTypeMaps = (
+                     from at in am.AssessorTypeMaps
+                     select new AssessorTypeMapDTO
+                     {
+                         AssessorTypeMapId = at.AssessorTypeMapId,
+                         AssessorMasterId = at.AssessorMasterId,
+                         AssessorTypeId = at.AssessorTypeId,
+
+                         AssessorType = new AssessorTypeDTO
+                         {
+                             TypeId = at.AssessorType.TypeId,
+                             TypeName = at.AssessorType.TypeName,
+                             Description = at.AssessorType.Description
+                         },
+
+                         AssessorUserMaps = (
+                             from um in at.AssessorUserMaps
+                             select new AssessorUserMapDTO
+                             {
+                                 AssessorUserMapId = um.AssessorUserMapId,
+                                 AssessorMasterId = um.AssessorMasterId,
+                                 UserId = um.UserId,
+                                 Name = null,
+                                 EmpCode = null
+                             }
+                         ).ToList()
+                     }
+                 ).ToList()
+             }
+         ).ToListAsync(cancellationToken);
+
+        // STEP 2: Extract all UserIds from AssessorUserMaps
+        var userIds = assessorData
+            .SelectMany(am => am.AssessorTypeMaps)
+            .SelectMany(tm => tm.AssessorUserMaps)
+            .Select(um => um.UserId.ToString())
+            .Distinct()
+            .ToList();
+
+        // STEP 3: Fetch users from _authDbContext based on UserIds
+        var userList = await _authDbContext.AspNetUsers
+            .Where(u => userIds.Contains(u.Id))
+            .Select(u => new { u.Id, u.Name, u.EmpCode })
+            .ToListAsync(cancellationToken);
+
+        // Convert to Dictionary for fast lookup
+        var userDict = userList.ToDictionary(u => u.Id, u => (u.Name, u.EmpCode));
+
+        // STEP 4: Map Name and EmpCode back into DTOs
+        foreach (var assessor in assessorData)
+        {
+            foreach (var typeMap in assessor.AssessorTypeMaps)
+            {
+                foreach (var userMap in typeMap.AssessorUserMaps)
+                {
+                    if (userDict.TryGetValue(userMap.UserId.ToString(), out var userInfo))
+                    {
+                        userMap.Name = userInfo.Name;
+                        userMap.EmpCode = userInfo.EmpCode;
+                    }
+                }
+            }
+        }
+
+        // Final result
+        return assessorData;
     }
 
 }
