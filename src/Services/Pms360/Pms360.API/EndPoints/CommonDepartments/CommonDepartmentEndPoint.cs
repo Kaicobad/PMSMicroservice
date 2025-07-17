@@ -9,6 +9,7 @@ public class CommonDepartmentEndPoint : EndPointGroupBase
             .RequireAuthorization();
 
         group.MapGet("getbyunit", GetCommonDepartmentByUnitId);
+        group.MapGet("getAllAsync", GetCommonDepartments);
     }
     public async Task<IResult> GetCommonDepartmentByUnitId(ISender sender, int unitId)
     {
@@ -19,5 +20,14 @@ public class CommonDepartmentEndPoint : EndPointGroupBase
         }
         return Results.BadRequest(result);
 
+    }
+    public async Task<IResult> GetCommonDepartments(ISender sender)
+    {
+        var result = await sender.Send(new GetCommonDepartmentQuery());
+        if (result.IsSuccessful)
+        {
+            return Results.Ok(result);
+        }
+        return Results.BadRequest(result);
     }
 }

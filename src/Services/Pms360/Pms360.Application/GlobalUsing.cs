@@ -23,6 +23,7 @@ global using Pms360.Application.Features.HumanResourceEmployeeBasics.Queries;
 global using Pms360.Application.Features.AssessorTypes.Commands;
 global using MapsterMapper;
 global using Pms360.Domain.DTO;
+global using Pms360.Infrastructure.AuthApiData;
 
 
 

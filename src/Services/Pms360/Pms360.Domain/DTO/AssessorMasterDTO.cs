@@ -12,5 +12,5 @@ public class AssessorMasterDTO
     public bool IsForWing { get; set; }
     public bool IsForTeam { get; set; }
     public virtual ICollection<AssessorTypeMapDTO> AssessorTypeMaps { get; set; } = [];
-    public virtual ICollection<AssessorUserMapDTO> AssessorUserMaps { get; set; } = [];
+    //public virtual ICollection<AssessorUserMapDTO> AssessorUserMaps { get; set; } = [];
 }

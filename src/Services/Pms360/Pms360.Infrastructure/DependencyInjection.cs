@@ -4,6 +4,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
+        #region PMS DbContext
         var connectionString = configuration.GetConnectionString("Pms360ConnectionString");
         Guard.Against.Null(connectionString, message: "Connection string 'Pms360ConnectionString' not found.");
 
@@ -15,6 +16,7 @@ public static class DependencyInjection
             });
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
         });
+        #endregion
 
         #region CoreERPContext
         var coreErpConnection = configuration.GetConnectionString("CoreErpConnectionString");
@@ -22,6 +24,14 @@ public static class DependencyInjection
 
         services.AddDbContext<CoreERPDbContext>(options =>
             options.UseSqlServer(coreErpConnection));
+        #endregion
+
+        #region AuthApiContext
+        var AuthApiConnection = configuration.GetConnectionString("AuthConnectionString");
+        Guard.Against.Null(AuthApiConnection, message: "Connection string 'AuthApiConnectionString' not found.");
+
+        services.AddDbContext<AuthDbContext>(options =>
+            options.UseSqlServer(AuthApiConnection));
         #endregion
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
@@ -39,6 +49,7 @@ public static class DependencyInjection
         services.AddScoped<IAssessorMasterService, AssessorMasterService>();
         services.AddScoped<IAssessorTypeMapService, AssessorTypeMapService>();
         services.AddScoped<IAssessorUserMapService, AssessorUserMapService>();
+        services.AddScoped<IAspNetUsersService,AspNetUsersService>();
         services.AddScoped<IMapper, Mapper>();
         services.AddScoped<CurrentUserService>();
         services.AddScoped<ICurrentUserService>(provider => provider.GetRequiredService<CurrentUserService>());
