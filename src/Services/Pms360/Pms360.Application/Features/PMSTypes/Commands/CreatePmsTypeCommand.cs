@@ -9,7 +9,7 @@ public class CreatePmsTypeCommandHandler(IPMSTypesService service) : IRequestHan
 
     public async Task<IResponse> Handle(CreatePmsTypeCommand request, CancellationToken cancellationToken)
     {
-        var pmsType = request.CreatePMSType.Adapt<PMSType>();
+        var pmsType = request.CreatePMSType.Adapt<Pmstype>();
         var pmsTypeId = await _service.CreateAsync(pmsType,cancellationToken);
 
         return Response<Guid>.Success(data:pmsTypeId,message:"PMS Type Created Successfully");

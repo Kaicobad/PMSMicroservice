@@ -183,7 +183,7 @@ public class AssessorMasterService(IApplicationDbContext dbContext,AuthDbContext
                              select new AssessorUserMapDTO
                              {
                                  AssessorUserMapId = um.AssessorUserMapId,
-                                 AssessorMasterId = um.AssessorMasterId,
+                                 //AssessorMasterId = um.AssessorMasterId,
                                  UserId = um.UserId,
                                  Name = null,
                                  EmpCode = null

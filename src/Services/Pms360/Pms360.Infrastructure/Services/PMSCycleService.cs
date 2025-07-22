@@ -4,9 +4,9 @@ public class PMSCycleService(IApplicationDbContext dbContext, IMapper mapper) : 
     private readonly IApplicationDbContext _dbContext = dbContext;
     private readonly IMapper _mapper = mapper;
 
-    public async Task<Guid> CreateAsync(PMSCycle pmsCycle, CancellationToken cancellationToken)
+    public async Task<Guid> CreateAsync(Pmscycle pmsCycle, CancellationToken cancellationToken)
     {
-        await _dbContext.PMSCycles.AddAsync(pmsCycle);
+        await _dbContext.Pmscycles.AddAsync(pmsCycle);
         await _dbContext.SaveChangesAsync(cancellationToken);
         return pmsCycle.CycleId;
     }
@@ -16,38 +16,38 @@ public class PMSCycleService(IApplicationDbContext dbContext, IMapper mapper) : 
         throw new NotImplementedException();
     }
 
-    public async Task<PaginatedList<PMSCycle>> GetAllPaginatedList(int pageNumber, int pageSize, CancellationToken cancellation)
+    public async Task<PaginatedList<Pmscycle>> GetAllPaginatedList(int pageNumber, int pageSize, CancellationToken cancellation)
     {
-        var query = _dbContext.PMSCycles
+        var query = _dbContext.Pmscycles
                  .OrderBy(x=> x.CycleId)
-                 .ProjectToType<PMSCycle>(_mapper.Config);
+                 .ProjectToType<Pmscycle>(_mapper.Config);
         return await query.PaginatedListAsync(pageNumber, pageSize);
     }
 
-    public Task<PMSCycle> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    public Task<Pmscycle> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<PaginatedList<PMSCycle>> GetByTypeAndDurationAsync(Guid pmsTypeId, Guid pmsDurationTypeId,int pageNumber,int pageSize, CancellationToken cancellationToken)
+    public async Task<PaginatedList<Pmscycle>> GetByTypeAndDurationAsync(Guid pmsTypeId, Guid pmsDurationTypeId,int pageNumber,int pageSize, CancellationToken cancellationToken)
     {
-        var query = _dbContext.PMSCycles
-            .Where(x => x.PMSTypeId == pmsTypeId && x.PMSDurationTypeId == pmsDurationTypeId)
-            .ProjectToType<PMSCycle>(_mapper.Config);
+        var query = _dbContext.Pmscycles
+            .Where(x => x.PmstypeId == pmsTypeId && x.PmsdurationTypeId == pmsDurationTypeId)
+            .ProjectToType<Pmscycle>(_mapper.Config);
 
         return await query.PaginatedListAsync(pageNumber, pageSize);
     }
 
     public async Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await _dbContext.PMSTypes.AnyAsync(types => types.TypeId == id);
+        return await _dbContext.Pmscycles.AnyAsync(types => types.CycleId == id);
     }
 
-    public async Task<PMSCycle> UpdateAsync(PMSCycle pmsCycle, CancellationToken cancellationToken)
+    public async Task<Pmscycle> UpdateAsync(Pmscycle pmsCycle, CancellationToken cancellationToken)
     {
         if (await IsExistsAsync(pmsCycle.CycleId, cancellationToken))
         {
-            _dbContext.PMSCycles.Update(pmsCycle);
+            _dbContext.Pmscycles.Update(pmsCycle);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return pmsCycle;
         }

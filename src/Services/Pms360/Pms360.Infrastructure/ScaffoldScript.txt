@@ -2,6 +2,7 @@ Scaffold-DbContext "Data Source=192.168.3.34;User ID=sa;Password=w23eW@#E;Databa
 
 Scaffold-DbContext "Data Source=192.168.3.34;User ID=sa;Password=w23eW@#E;Database=AuthApiDb;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer -Context AuthDbContext -OutputDir  AuthApiData -Tables AspNetUser  -Force
 
+Scaffold-DbContext "Data Source=192.168.3.34;User ID=sa;Password=w23eW@#E;Database=PMS360_Dev_New;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer -Context ApplicationDbContext -OutputDir Data -NoOnConfiguring -Force
 
 ---- Exclusive Migration Script for this Project
 
@@ -10,3 +11,68 @@ note : have to mention the dbcontext name if there is more than one dbcontext in
 Migration For ApplicationDbContext: Add-Migration "AddedDescriptionInAssessortype" -Context ApplicationDbContext -Project Pms360.Infrastructure -StartupProject Pms360.API
 
 Update Datababse For ApplicationDbContext: Update-Database -Context ApplicationDbContext
+
+
+
+
+----- Application DbContext Setup
+
+namespace Pms360.Infrastructure.Data;
+public class ApplicationDbContext : DbContext , IApplicationDbContext
+{
+    private readonly ICurrentUserService _userService;
+
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ICurrentUserService userService) : base(options)
+    {
+        _userService = userService;
+    }
+    public DbSet<PMSType> PMSTypes => Set<PMSType>();
+    public DbSet<PMSDurationType> PMSDurationTypes => Set<PMSDurationType>();
+    public DbSet<AssessorType> AssessorTypes => Set<AssessorType>();
+    public DbSet<CriteriaScale> CriteriaScales => Set<CriteriaScale>();
+    public DbSet<EvaluationCriteria> EvaluationCriteria => Set<EvaluationCriteria>();
+    public DbSet<EvaluationResponse> EvaluationResponses => Set<EvaluationResponse>();
+    public DbSet<EvaluationSummary> EvaluationSummaries => Set<EvaluationSummary>();
+    public DbSet<PMSAssessor> PMSAssessors => Set<PMSAssessor>();
+    public DbSet<PMSCycle> PMSCycles => Set<PMSCycle>();
+    public DbSet<PMSCycleDetails> PMSCycleDetails => Set<PMSCycleDetails>();
+    public DbSet<PMSCycleDetailsWithCriteriaMapping> PMSCycleDetailsWithCriteriaMappings => Set<PMSCycleDetailsWithCriteriaMapping>();
+    public DbSet<AssessorMaster> AssessorMasters => Set<AssessorMaster>();
+    public DbSet<AssessorTypeMap> AssessorTypeMaps => Set<AssessorTypeMap>();
+    public DbSet<AssessorUserMap> AssessorUserMaps => Set<AssessorUserMap>();
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        base.OnModelCreating(modelBuilder);
+
+    }
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        foreach (var entry in ChangeTracker.Entries<BaseEntity>())
+        {
+            switch (entry.State)
+            {
+                case EntityState.Detached:
+                    entry.State = EntityState.Modified;
+                    break;
+                case EntityState.Added:
+                    entry.Entity.CreatedOn = DateTime.UtcNow;
+                    entry.Entity.CreatedById = _userService.UserId;
+                    entry.Entity.UpdatedBy = _userService.UserId;
+                    entry.Entity.UpdatedOn = DateTime.UtcNow;
+                    break;
+                case EntityState.Modified:
+                    entry.Entity.UpdatedBy = _userService.UserId;
+                    entry.Entity.UpdatedOn = DateTime.UtcNow;
+                    break;
+                case EntityState.Deleted:
+                    entry.State = EntityState.Modified;
+                    entry.Entity.DeletedOn = DateTime.UtcNow;
+                    entry.Entity.DeletedById = _userService.UserId;
+                    break;
+            }
+        }
+
+        return await base.SaveChangesAsync(cancellationToken);
+    }
+}

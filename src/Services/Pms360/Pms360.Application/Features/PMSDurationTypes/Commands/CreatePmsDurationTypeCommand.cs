@@ -9,7 +9,7 @@ public class CreatePmsDurationTypeCommandHandler(IPMSDurationTypeService service
 
     public async Task<IResponse> Handle(CreatePmsDurationTypeCommand request, CancellationToken cancellationToken)
     {
-        var pmsDurationType = request.CreatePmsDurationType.Adapt<PMSDurationType>();
+        var pmsDurationType = request.CreatePmsDurationType.Adapt<PmsdurationType>();
         var pmsDurationTypeId = await _service.CreateAsync(pmsDurationType, cancellationToken);
 
         return Response<Guid>.Success(data: pmsDurationTypeId, message: "PMS Duration Type Created Successfully !");

@@ -1,19 +1,13 @@
 ﻿namespace Pms360.Domain.Entities;
-public class AssessorUserMap : BaseEntity
+
+public partial class AssessorUserMap : BaseEntity
 {
-    [Key]
-    [Required]
-    public Guid AssessorUserMapId { get; set; } 
-    [Required]
+    public Guid AssessorUserMapId { get; set; }
+
     public Guid AssessorTypeMapId { get; set; }
 
-    [ForeignKey(nameof(AssessorTypeMapId))]
-    public AssessorTypeMap AssessorTypeMap { get; set; }
-    [Required]
-    public Guid AssessorMasterId { get; set; }
-    [ForeignKey(nameof(AssessorMasterId))]
-    public AssessorMaster AccessorMaster { get; set; }
-    [Required]
     public Guid UserId { get; set; }
+    public virtual AssessorTypeMap AssessorTypeMap { get; set; }
 
+    public virtual ICollection<EvaluationResponse> EvaluationResponses { get; set; } = new List<EvaluationResponse>();
 }

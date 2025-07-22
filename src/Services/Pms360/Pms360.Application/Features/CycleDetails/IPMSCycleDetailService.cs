@@ -3,12 +3,12 @@
 namespace Pms360.Application.Features.CycleDetails;
 public interface IPMSCycleDetailService
 {
-    Task<Guid> CreateAsync(PMSCycleDetails pmsCycleDetails, CancellationToken cancellationToken);
-    Task<PMSType> UpdateAsync(PMSCycleDetails pmsCycleDetails, CancellationToken cancellationToken);
+    Task<Guid> CreateAsync(PmscycleDetail pmsCycleDetails, CancellationToken cancellationToken);
+    Task<Pmstype> UpdateAsync(PmscycleDetail pmsCycleDetails, CancellationToken cancellationToken);
     Task<int> DeleteAsync(Guid id, CancellationToken cancellationToken);
-    Task<PMSType> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<PaginatedList<PMSType>> GetAllWithPagination(int pageNumber, int pageSize, CancellationToken cancellationToken);
-    Task<List<PMSCycleDetails>> GetAllNoFilter(CancellationToken cancellationToken);
+    Task<Pmstype> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<PaginatedList<Pmstype>> GetAllWithPagination(int pageNumber, int pageSize, CancellationToken cancellationToken);
+    Task<List<PmscycleDetail>> GetAllNoFilter(CancellationToken cancellationToken);
     Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken);
     Task<bool> IsNameExistsAsync(string name, CancellationToken cancellationToken);
 }

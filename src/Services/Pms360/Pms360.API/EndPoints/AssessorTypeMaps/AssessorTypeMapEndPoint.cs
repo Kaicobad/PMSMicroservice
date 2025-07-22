@@ -4,7 +4,7 @@ namespace Pms360.API.EndPoints.AssessorTypeMaps;
 
 public class AssessorTypeMapEndPoint : EndPointGroupBase
 {
-    private const string RoutePrefix = "api/v1/pms360/assessorTypeMaMap";
+    private const string RoutePrefix = "api/v1/pms360/assessorTypeMap";
 
     public override void Map(WebApplication app)
     {

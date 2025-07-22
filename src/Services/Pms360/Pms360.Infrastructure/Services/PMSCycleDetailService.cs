@@ -2,7 +2,7 @@
 namespace Pms360.Infrastructure.Services;
 public class PMSCycleDetailService : IPMSCycleDetailService
 {
-    public Task<Guid> CreateAsync(PMSCycleDetails pmsCycleDetails, CancellationToken cancellationToken)
+    public Task<Guid> CreateAsync(PmscycleDetail pmsCycleDetails, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
@@ -12,17 +12,17 @@ public class PMSCycleDetailService : IPMSCycleDetailService
         throw new NotImplementedException();
     }
 
-    public Task<List<PMSCycleDetails>> GetAllNoFilter(CancellationToken cancellationToken)
+    public Task<List<PmscycleDetail>> GetAllNoFilter(CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public Task<PaginatedList<PMSType>> GetAllWithPagination(int pageNumber, int pageSize, CancellationToken cancellationToken)
+    public Task<PaginatedList<Pmstype>> GetAllWithPagination(int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public Task<PMSType> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    public Task<Pmstype> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
@@ -37,7 +37,7 @@ public class PMSCycleDetailService : IPMSCycleDetailService
         throw new NotImplementedException();
     }
 
-    public Task<PMSType> UpdateAsync(PMSCycleDetails pmsCycleDetails, CancellationToken cancellationToken)
+    public Task<Pmstype> UpdateAsync(PmscycleDetail pmsCycleDetails, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

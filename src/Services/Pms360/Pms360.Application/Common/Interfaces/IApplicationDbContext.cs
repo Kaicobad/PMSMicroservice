@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 namespace Pms360.Application.Common.Interfaces;
 public interface IApplicationDbContext
 {
-    DbSet<PMSType> PMSTypes { get; }
-    DbSet<PMSDurationType> PMSDurationTypes { get; }
+    DbSet<Pmstype> Pmstypes { get; }
+    DbSet<PmsdurationType> PmsdurationTypes { get; }
     DbSet<AssessorType> AssessorTypes { get; }
     DbSet<CriteriaScale> CriteriaScales { get; }
-    DbSet<EvaluationCriteria> EvaluationCriteria { get; }
+    DbSet<EvaluationCriterion> EvaluationCriteria { get; }
     DbSet<EvaluationResponse> EvaluationResponses { get; }
     DbSet<EvaluationSummary> EvaluationSummaries { get; }
-    DbSet<PMSAssessor> PMSAssessors { get; }
-    DbSet<PMSCycle> PMSCycles { get; }
-    DbSet<PMSCycleDetails> PMSCycleDetails { get; }
-    DbSet<PMSCycleDetailsWithCriteriaMapping> PMSCycleDetailsWithCriteriaMappings { get; }
+    DbSet<Pmscycle> Pmscycles { get; }
+    DbSet<PmscycleDetail> PmscycleDetails { get; }
+    DbSet<PmscycleDetailsWithCriteriaMapping> PmscycleDetailsWithCriteriaMappings { get; }
     DbSet<AssessorMaster> AssessorMasters { get; }
     DbSet<AssessorTypeMap> AssessorTypeMaps { get; }
     DbSet<AssessorUserMap> AssessorUserMaps { get; }

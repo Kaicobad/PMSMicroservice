@@ -25,7 +25,7 @@ public class PMSTypeEndPoint : EndPointGroupBase
             return Results.Ok(result);
         }
         return Results.BadRequest(result);
-        
+
     }
     public async Task<IResult> UpdatePMSType(ISender sender, [AsParameters] UpdatePmsTypeCommand command)
     {
@@ -53,7 +53,7 @@ public class PMSTypeEndPoint : EndPointGroupBase
             return Results.Ok(result);
         }
         return Results.BadRequest(result);
-        
+
     }
     public async Task<IResult> GetPmsTypesWithPagination(ISender sender, [AsParameters] GetPmsTypePaginatedQuery query)
     {
@@ -73,7 +73,7 @@ public class PMSTypeEndPoint : EndPointGroupBase
             return Results.Ok(result);
         }
         return Results.BadRequest(result);
-        
+
     }
     public async Task<IResult> DeletePmsType(ISender sender, Guid typeId)
     {

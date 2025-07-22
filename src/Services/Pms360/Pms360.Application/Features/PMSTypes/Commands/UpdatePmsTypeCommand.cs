@@ -12,14 +12,14 @@ public class UpdatePmsTypeCommandHandler(IPMSTypesService service) : IRequestHan
 
     public async Task<IResponse> Handle(UpdatePmsTypeCommand request, CancellationToken cancellationToken)
     {
-        var pmsType = request.UpdatePmsType.Adapt<PMSType>();
+        var pmsType = request.UpdatePmsType.Adapt<Pmstype>();
 
         var updatePmsType = await _service.UpdateAsync(pmsType, cancellationToken);
         if (updatePmsType != null) 
         {
-            return Response<PMSType>.Success(data: updatePmsType, message: "PMS Type Updated Successfully");
+            return Response<Pmstype>.Success(data: updatePmsType, message: "PMS Type Updated Successfully");
         }
-        return Response<PMSType>.Fail(message: "Couldn't Update the Type");
+        return Response<Pmstype>.Fail(message: "Couldn't Update the Type");
        
     }
 }
