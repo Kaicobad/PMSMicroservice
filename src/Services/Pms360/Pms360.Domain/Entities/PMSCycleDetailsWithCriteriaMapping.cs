@@ -1,14 +1,14 @@
 ﻿namespace Pms360.Domain.Entities;
-public class PMSCycleDetailsWithCriteriaMapping
-{
-    [Required]
-    [Key]
-    public Guid CycleDetailsCriteriaMappingId { get; set; }
-    public Guid CycleDetailsId { get; set; }
-    public Guid CriteriaId { get; set; }
-    [ForeignKey("CycleDetailsId")]
-    public virtual PMSCycleDetails CycleDetails { get; set; }
 
-    [ForeignKey("CriteriaId")]
-    public virtual EvaluationCriteria Criteria { get; set; }
+public partial class PmscycleDetailsWithCriteriaMapping : BaseEntity
+{
+    public Guid CycleDetailsCriteriaMappingId { get; set; }
+
+    public Guid? CycleDetailsId { get; set; }
+
+    public Guid? CriteriaId { get; set; }
+
+    public virtual EvaluationCriterion Criteria { get; set; }
+
+    public virtual PmscycleDetail CycleDetails { get; set; }
 }

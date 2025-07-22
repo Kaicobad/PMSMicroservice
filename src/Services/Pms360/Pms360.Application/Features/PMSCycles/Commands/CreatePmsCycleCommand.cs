@@ -9,7 +9,7 @@ public class CreatePmsCycleCommandHandler(IPMSCycleService service) : IRequestHa
 
     public async Task<IResponse> Handle(CreatePmsCycleCommand request, CancellationToken cancellationToken)
     {
-        var pmsCycle = request.CreatePmsCycle.Adapt<PMSCycle>();
+        var pmsCycle = request.CreatePmsCycle.Adapt<Pmscycle>();
         var pmsCycleId = await _service.CreateAsync(pmsCycle, cancellationToken);
         return Response<Guid>.Success(data: pmsCycleId, message: "PMS Cycle Created Successfully !");
     }

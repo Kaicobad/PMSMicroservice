@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace Pms360.Application.Features.PMSDurationTypes;
 public interface IPMSDurationTypeService
 {
-    Task<Guid> CreateAsync(PMSDurationType pmsDurationType, CancellationToken cancellationToken);
-    Task<PMSDurationType> UpdateAsync(PMSDurationType pmsDurationType, CancellationToken cancellationToken);
+    Task<Guid> CreateAsync(PmsdurationType pmsDurationType, CancellationToken cancellationToken);
+    Task<PmsdurationType> UpdateAsync(PmsdurationType pmsDurationType, CancellationToken cancellationToken);
     Task<int> DeleteAsync(Guid id, CancellationToken cancellationToken);
-    Task<PMSDurationType> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<List<PMSDurationType>> GetAll(CancellationToken cancellationToken);
-    Task<List<PMSDurationType>> GetAllNoFilter(CancellationToken cancellationToken);
+    Task<PmsdurationType> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<List<PmsdurationType>> GetAll(CancellationToken cancellationToken);
+    Task<List<PmsdurationType>> GetAllNoFilter(CancellationToken cancellationToken);
     Task<bool> IsExistsAsync(Guid id, CancellationToken cancellationToken);
     Task<bool> IsNameExistsAsync(string name, CancellationToken cancellationToken);
 }

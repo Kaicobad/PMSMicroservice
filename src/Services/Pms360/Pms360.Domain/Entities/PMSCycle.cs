@@ -1,21 +1,24 @@
 ﻿namespace Pms360.Domain.Entities;
-public class PMSCycle : BaseEntity
+
+public partial class Pmscycle  : BaseEntity
 {
-    [Required]
-    [Key]
     public Guid CycleId { get; set; }
+
     public string Title { get; set; }
-    public Guid PMSTypeId { get; set; }
-    public Guid PMSDurationTypeId { get; set; }
+
+    public Guid PmstypeId { get; set; }
+
+    public Guid PmsdurationTypeId { get; set; }
+
     public DateOnly StartDate { get; set; }
+
     public DateOnly EndDate { get; set; }
 
-    [ForeignKey("PMSTypeId")]
-    public virtual PMSType PMSType { get; set; }
+    public virtual ICollection<EvaluationSummary> EvaluationSummaries { get; set; } = new List<EvaluationSummary>();
 
-    [ForeignKey("PMSDurationTypeId")]
-    public virtual PMSDurationType PMSDurationType { get; set; }
-    public virtual ICollection<PMSCycleDetails> CycleDetails { get; set; }
-    public virtual ICollection<PMSAssessor> Assessors { get; set; }
-    public virtual ICollection<EvaluationSummary> EvaluationSummaries { get; set; }
+    public virtual ICollection<PmscycleDetail> PmscycleDetails { get; set; } = new List<PmscycleDetail>();
+
+    public virtual PmsdurationType PmsdurationType { get; set; }
+
+    public virtual Pmstype Pmstype { get; set; }
 }
